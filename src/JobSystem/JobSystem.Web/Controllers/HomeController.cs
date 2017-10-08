@@ -10,6 +10,7 @@ namespace JobSystem.Web.Controllers
     {
         public ActionResult Index()
         {
+            HttpContext.User.IsInRole("Admin");
             return View();
         }
 

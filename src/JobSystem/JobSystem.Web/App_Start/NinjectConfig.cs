@@ -1,17 +1,17 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(JobSystem.Web.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(JobSystem.Web.App_Start.NinjectWebCommon), "Stop")]
+using System;
+using System.Web;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Web.Common;
+//using Ninject.Extensions.Conventions;
+
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(JobSystem.Web.App_Start.NinjectConfig), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(JobSystem.Web.App_Start.NinjectConfig), "Stop")]
 
 namespace JobSystem.Web.App_Start
 {
-    using System;
-    using System.Web;
 
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
-
-    public static class NinjectWebCommon 
+    public static class NinjectConfig 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
@@ -61,6 +61,24 @@ namespace JobSystem.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            //kernel.Bind(x =>
+            //{
+            //    x.FromThisAssembly()
+            //     .SelectAllClasses()
+            //     .BindDefaultInterface();
+            //});
+
+            //kernel.Bind(x =>
+            //{
+            //    x.FromAssemblyContaining(typeof(IService))
+            //     .SelectAllClasses()
+            //     .BindDefaultInterface();
+            //});
+
+            //kernel.Bind(typeof(DbContext), typeof(MsSqlDbContext)).To<MsSqlDbContext>().InRequestScope();
+            //kernel.Bind(typeof(IEfRepository<>)).To(typeof(EfRepository<>));
+            //kernel.Bind<ISaveContext>().To<SaveContext>();
+            //kernel.Bind<IMapper>().To<Mapper>();
         }        
     }
 }
