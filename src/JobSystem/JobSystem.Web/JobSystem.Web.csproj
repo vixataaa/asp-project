@@ -293,6 +293,16 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JobSystem.Data.Models\JobSystem.Data.Models.csproj">
+      <Project>{C99DC6CA-C91B-4BC0-B47D-4D9AE48D8B99}</Project>
+      <Name>JobSystem.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JobSystem.Data\JobSystem.Data.csproj">
+      <Project>{B75BA71F-B0DE-4F95-85CF-12B9F4B25584}</Project>
+      <Name>JobSystem.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

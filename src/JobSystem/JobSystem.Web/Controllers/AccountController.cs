@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using JobSystem.Web.Models;
+using JobSystem.Data.Models;
 
 namespace JobSystem.Web.Controllers
 {
