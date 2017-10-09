@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSystem.Web", "JobSystem.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSystem.ViewModels", "JobSystem.ViewModels\JobSystem.ViewModels.csproj", "{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSystem.Web.Common", "JobSystem.Web.Common\JobSystem.Web.Common.csproj", "{A7388336-544B-442D-BE9C-D72C7C0F8EE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSystem.Data.Common", "JobSystem.Data.Common\JobSystem.Data.Common.csproj", "{DAB06A75-3EAD-4AA5-8DC1-D7C2DCDE7170}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7388336-544B-442D-BE9C-D72C7C0F8EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7388336-544B-442D-BE9C-D72C7C0F8EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7388336-544B-442D-BE9C-D72C7C0F8EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7388336-544B-442D-BE9C-D72C7C0F8EE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAB06A75-3EAD-4AA5-8DC1-D7C2DCDE7170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAB06A75-3EAD-4AA5-8DC1-D7C2DCDE7170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAB06A75-3EAD-4AA5-8DC1-D7C2DCDE7170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAB06A75-3EAD-4AA5-8DC1-D7C2DCDE7170}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

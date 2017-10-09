@@ -211,6 +211,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ServiceLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -271,6 +272,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Manage\ChangeDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -291,6 +293,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JobSystem.Data.Common\JobSystem.Data.Common.csproj">
+      <Project>{DAB06A75-3EAD-4AA5-8DC1-D7C2DCDE7170}</Project>
+      <Name>JobSystem.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JobSystem.Data.Models\JobSystem.Data.Models.csproj">
       <Project>{C99DC6CA-C91B-4BC0-B47D-4D9AE48D8B99}</Project>
       <Name>JobSystem.Data.Models</Name>
@@ -302,6 +308,10 @@
     <ProjectReference Include="..\JobSystem.ViewModels\JobSystem.ViewModels.csproj">
       <Project>{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}</Project>
       <Name>JobSystem.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JobSystem.Web.Common\JobSystem.Web.Common.csproj">
+      <Project>{A7388336-544B-442D-BE9C-D72C7C0F8EE5}</Project>
+      <Name>JobSystem.Web.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

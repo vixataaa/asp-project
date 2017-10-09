@@ -3,7 +3,15 @@ using System.Web;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
-//using Ninject.Extensions.Conventions;
+using Ninject.Extensions.Conventions;
+using JobSystem.Web.Common.Contracts;
+using JobSystem.Data.Repositories.Factories;
+using JobSystem.Data;
+using System.Data.Entity;
+using JobSystem.Data.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(JobSystem.Web.App_Start.NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(JobSystem.Web.App_Start.NinjectConfig), "Stop")]
@@ -11,20 +19,20 @@ using Ninject.Web.Common;
 namespace JobSystem.Web.App_Start
 {
 
-    public static class NinjectConfig 
+    public static class NinjectConfig
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -32,7 +40,7 @@ namespace JobSystem.Web.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -61,24 +69,31 @@ namespace JobSystem.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            //kernel.Bind(x =>
-            //{
-            //    x.FromThisAssembly()
-            //     .SelectAllClasses()
-            //     .BindDefaultInterface();
-            //});
+            kernel.Bind(x =>
+            {
+                x.FromThisAssembly()
+                 .SelectAllClasses()
+                 .BindDefaultInterface();
+            });
 
-            //kernel.Bind(x =>
-            //{
-            //    x.FromAssemblyContaining(typeof(IService))
-            //     .SelectAllClasses()
-            //     .BindDefaultInterface();
-            //});
+            kernel.Bind(x =>
+            {
+                x.FromAssemblyContaining(typeof(IServiceLocator))
+                    .SelectAllClasses()
+                    .BindDefaultInterface();
 
-            //kernel.Bind(typeof(DbContext), typeof(MsSqlDbContext)).To<MsSqlDbContext>().InRequestScope();
-            //kernel.Bind(typeof(IEfRepository<>)).To(typeof(EfRepository<>));
-            //kernel.Bind<ISaveContext>().To<SaveContext>();
-            //kernel.Bind<IMapper>().To<Mapper>();
-        }        
+                x.FromAssemblyContaining(typeof(IJobSystemData))
+                    .SelectAllClasses()
+                    .BindDefaultInterface();
+            });
+
+
+            kernel.Bind(typeof(DbContext), typeof(MsSqlDbContext)).To<MsSqlDbContext>().InRequestScope();
+
+            // Y tho?!
+            kernel.Bind(typeof(IUserStore<ApplicationUser>)).To(typeof(UserStore<ApplicationUser>));
+            kernel.Bind<IAuthenticationManager>().ToMethod(c =>
+                HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
+        }
     }
 }

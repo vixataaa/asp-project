@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B75BA71F-B0DE-4F95-85CF-12B9F4B25584}</ProjectGuid>
+    <ProjectGuid>{DAB06A75-3EAD-4AA5-8DC1-D7C2DCDE7170}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>JobSystem.Data</RootNamespace>
-    <AssemblyName>JobSystem.Data</AssemblyName>
+    <RootNamespace>JobSystem.Data.Common</RootNamespace>
+    <AssemblyName>JobSystem.Data.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,20 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,43 +44,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IJobSystemData.cs" />
-    <Compile Include="JobSystemData.cs" />
-    <Compile Include="Migrations\201710091040519_Initial.cs" />
-    <Compile Include="Migrations\201710091040519_Initial.Designer.cs">
-      <DependentUpon>201710091040519_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="MsSqlDbContext.cs" />
+    <Compile Include="Contracts\IEfRepository.cs" />
+    <Compile Include="Contracts\IUsersRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Base\EfRepository.cs" />
-    <Compile Include="Repositories\Factories\IRepositoryFactory.cs" />
-    <Compile Include="Repositories\Factories\RepositoryFactory.cs" />
-    <Compile Include="Repositories\UsersRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JobSystem.Data.Common\JobSystem.Data.Common.csproj">
-      <Project>{DAB06A75-3EAD-4AA5-8DC1-D7C2DCDE7170}</Project>
-      <Name>JobSystem.Data.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\JobSystem.Data.Models\JobSystem.Data.Models.csproj">
       <Project>{C99DC6CA-C91B-4BC0-B47D-4D9AE48D8B99}</Project>
       <Name>JobSystem.Data.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\JobSystem.Web.Common\JobSystem.Web.Common.csproj">
-      <Project>{A7388336-544B-442D-BE9C-D72C7C0F8EE5}</Project>
-      <Name>JobSystem.Web.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710091040519_Initial.resx">
-      <DependentUpon>201710091040519_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -42,6 +42,7 @@ namespace JobSystem.Data.Migrations
                 }
 
                 // Init default admin
+
                 //var userStore = new UserStore<ApplicationUser>(context);
                 //var userManager = new UserManager<ApplicationUser>(userStore);
                 //var user = new Person
