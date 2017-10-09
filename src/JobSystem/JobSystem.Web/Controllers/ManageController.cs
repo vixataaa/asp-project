@@ -16,9 +16,9 @@ namespace JobSystem.Web.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private readonly IJobSystemData data;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly IJobSystemData data;
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IJobSystemData data)
         {
@@ -106,40 +106,54 @@ namespace JobSystem.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ChangeDetails()
         {
-            if (!this.User.Identity.IsAuthenticated)
-            {
-                return this.RedirectToAction("Login", "Account");
-            }
-
             return this.View();
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeDetails(ChangeDetailsViewModel model)
+        public ActionResult ChangeDetails(ChangeUserDetailsViewModel model)
         {
-            // Currently only valid for role Person
             var id = User.Identity.GetUserId();
-
-            var user = this.data.Users
+            
+            if (this.User.IsInRole("Person"))
+            {
+                var user = this.data.Users
                 .All
                 .OfType<Person>()
                 .FirstOrDefault(x => x.Id == id);
 
-            if (!string.IsNullOrEmpty(model.FirstName))
-            {
-                user.FirstName = model.FirstName;
-            }
+                if (!string.IsNullOrEmpty(model.FirstName))
+                {
+                    user.FirstName = model.FirstName;
+                }
 
-            if (!string.IsNullOrEmpty(model.LastName))
-            {
-                user.LastName = model.LastName;
-            }
+                if (!string.IsNullOrEmpty(model.LastName))
+                {
+                    user.LastName = model.LastName;
+                }
 
-            this.data.Users.Update(user);
-            this.data.SaveChanges();
+                this.data.Users.Update(user);
+                this.data.SaveChanges();
+            }
+            else
+            {
+                var user = this.data.Users
+                .All
+                .OfType<Firm>()
+                .FirstOrDefault(x => x.Id == id);
+
+                if (!string.IsNullOrEmpty(model.FirmName))
+                {
+                    user.FirmName = model.FirmName;
+                }
+
+                this.data.Users.Update(user);
+                this.data.SaveChanges();
+            }
 
             return this.View();
         }
