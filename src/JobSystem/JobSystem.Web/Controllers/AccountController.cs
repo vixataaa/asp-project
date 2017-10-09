@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using JobSystem.Data.Models;
 using JobSystem.ViewModels.Account;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace JobSystem.Web.Controllers
 {
@@ -23,7 +24,7 @@ namespace JobSystem.Web.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -35,9 +36,9 @@ namespace JobSystem.Web.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -121,7 +122,7 @@ namespace JobSystem.Web.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -152,12 +153,31 @@ namespace JobSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Firm { UserName = model.Email, Email = model.Email };
+                ApplicationUser user = null;
+                string roleName = "";
+
+                if (model.RegisterType == "Person")
+                {
+                    user = new Person { UserName = model.Email, Email = model.Email };
+                    roleName = "Person";
+                }
+                else if (model.RegisterType == "Firm")
+                {
+                    user = new Firm { UserName = model.Email, Email = model.Email };
+                    roleName = "Firm";
+                }
+                else
+                {
+                    // Probably handle error with invalid user type
+                }
+
                 var result = await UserManager.CreateAsync(user, model.Password);
+                this.UserManager.AddToRole(user.Id, roleName);
+
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

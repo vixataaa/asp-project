@@ -10,6 +10,8 @@ namespace JobSystem.ViewModels.Account
 {
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Registration type")]
         public string RegisterType { get; set; }
 
         public IEnumerable<SelectListItem> RegisterTypes
