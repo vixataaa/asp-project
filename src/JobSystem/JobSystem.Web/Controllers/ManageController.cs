@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using JobSystem.ViewModels.Manage;
 using JobSystem.ViewModels.Account;
 using JobSystem.Data;
+using JobSystem.Data.Models;
 
 namespace JobSystem.Web.Controllers
 {
@@ -117,8 +118,29 @@ namespace JobSystem.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeDetails(ChangeDetailsViewModel model, object obj)
-        {            
+        public ActionResult ChangeDetails(ChangeDetailsViewModel model)
+        {
+            // Currently only valid for role Person
+            var id = User.Identity.GetUserId();
+
+            var user = this.data.Users
+                .All
+                .OfType<Person>()
+                .FirstOrDefault(x => x.Id == id);
+
+            if (!string.IsNullOrEmpty(model.FirstName))
+            {
+                user.FirstName = model.FirstName;
+            }
+
+            if (!string.IsNullOrEmpty(model.LastName))
+            {
+                user.LastName = model.LastName;
+            }
+
+            this.data.Users.Update(user);
+            this.data.SaveChanges();
+
             return this.View();
         }
 
