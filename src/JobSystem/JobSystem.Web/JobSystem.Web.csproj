@@ -18,7 +18,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44383</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -210,9 +211,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -300,6 +298,10 @@
     <ProjectReference Include="..\JobSystem.Data\JobSystem.Data.csproj">
       <Project>{B75BA71F-B0DE-4F95-85CF-12B9F4B25584}</Project>
       <Name>JobSystem.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JobSystem.ViewModels\JobSystem.ViewModels.csproj">
+      <Project>{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}</Project>
+      <Name>JobSystem.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

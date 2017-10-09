@@ -13,7 +13,7 @@ namespace JobSystem.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201710081312368_Initial"; }
+            get { return "201710091040519_Initial"; }
         }
         
         string IMigrationMetadata.Source

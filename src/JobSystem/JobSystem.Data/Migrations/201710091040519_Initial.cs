@@ -1,8 +1,7 @@
-using System;
-using System.Data.Entity.Migrations;
-
 namespace JobSystem.Data.Migrations
 {
+    using System;
+    using System.Data.Entity.Migrations;
     
     public partial class Initial : DbMigration
     {
@@ -51,6 +50,10 @@ namespace JobSystem.Data.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
+                        FirmName = c.String(),
+                        FirstName = c.String(),
+                        LastName = c.String(),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.IsDeleted)

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSystem.Data.Models", "Jo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSystem.Web", "JobSystem.Web\JobSystem.Web.csproj", "{F83F07B4-2677-4908-A039-B6B9F6C7F354}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobSystem.ViewModels", "JobSystem.ViewModels\JobSystem.ViewModels.csproj", "{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{F83F07B4-2677-4908-A039-B6B9F6C7F354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F83F07B4-2677-4908-A039-B6B9F6C7F354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F83F07B4-2677-4908-A039-B6B9F6C7F354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF4DFAE-219A-4EC0-9D29-765D1B7298E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
