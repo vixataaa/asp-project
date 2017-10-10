@@ -89,8 +89,7 @@ namespace JobSystem.Web.App_Start
 
 
             kernel.Bind(typeof(DbContext), typeof(MsSqlDbContext)).To<MsSqlDbContext>().InRequestScope();
-
-            // Y tho?!
+            
             kernel.Bind(typeof(IUserStore<ApplicationUser>)).To(typeof(UserStore<ApplicationUser>));
             kernel.Bind<IAuthenticationManager>().ToMethod(c =>
                 HttpContext.Current.GetOwinContext().Authentication).InRequestScope();

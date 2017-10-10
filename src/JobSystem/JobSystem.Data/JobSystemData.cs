@@ -37,7 +37,13 @@ namespace JobSystem.Data
         private IEfRepository<T> GetRepository<T>()
             where T : class, IDeletable, IAuditable
         {
-            return this.repositoryFactory.GetRepository<T>();
+            if (!this.repositories.ContainsKey(typeof(T)))
+            {
+                var repo = this.repositoryFactory.GetRepository<T>();
+                this.repositories.Add(typeof(T), repo);
+            }
+
+            return (IEfRepository<T>)this.repositories[typeof(T)];
         }
     }
 }
