@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using JobSystem.Data.Models.Contracts;
-using JobSystem.Data.Common.Contracts;
+using JobSystem.Data.Contracts;
 
 namespace JobSystem.Data.Repositories
 {

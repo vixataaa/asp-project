@@ -89,6 +89,8 @@
     <Compile Include="Account\ResetPasswordViewModel.cs" />
     <Compile Include="Account\SendCodeViewModel.cs" />
     <Compile Include="Account\VerifyCodeViewModel.cs" />
+    <Compile Include="Jobs\AddJobViewModel.cs" />
+    <Compile Include="Jobs\JobsIndexViewModel.cs" />
     <Compile Include="Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="Manage\ChangeUserDetailsViewModel.cs" />
     <Compile Include="Manage\ChangePasswordViewModel.cs" />
@@ -106,6 +108,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JobSystem.Data.Models\JobSystem.Data.Models.csproj">
+      <Project>{C99DC6CA-C91B-4BC0-B47D-4D9AE48D8B99}</Project>
+      <Name>JobSystem.Data.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

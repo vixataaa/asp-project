@@ -4,14 +4,14 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
 using Ninject.Extensions.Conventions;
-using JobSystem.Web.Common.Contracts;
-using JobSystem.Data.Repositories.Factories;
 using JobSystem.Data;
 using System.Data.Entity;
 using JobSystem.Data.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using JobSystem.Services.Data.Contracts;
+using JobSystem.Data.Contracts;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(JobSystem.Web.App_Start.NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(JobSystem.Web.App_Start.NinjectConfig), "Stop")]
@@ -78,18 +78,18 @@ namespace JobSystem.Web.App_Start
 
             kernel.Bind(x =>
             {
-                x.FromAssemblyContaining(typeof(IServiceLocator))
+                x.FromAssemblyContaining(typeof(IUsersService))
                     .SelectAllClasses()
                     .BindDefaultInterface();
 
-                x.FromAssemblyContaining(typeof(IJobSystemData))
+                x.FromAssemblyContaining(typeof(IUsersRepository))
                     .SelectAllClasses()
                     .BindDefaultInterface();
             });
 
 
             kernel.Bind(typeof(DbContext), typeof(MsSqlDbContext)).To<MsSqlDbContext>().InRequestScope();
-            
+
             kernel.Bind(typeof(IUserStore<ApplicationUser>)).To(typeof(UserStore<ApplicationUser>));
             kernel.Bind<IAuthenticationManager>().ToMethod(c =>
                 HttpContext.Current.GetOwinContext().Authentication).InRequestScope();

@@ -17,6 +17,8 @@ namespace JobSystem.Data
         {            
         }
 
+        public IDbSet<Job> Jobs { get; set; }
+
         public static MsSqlDbContext Create()
         {
             return new MsSqlDbContext();
@@ -37,7 +39,7 @@ namespace JobSystem.Data
                         e.Entity is IAuditable && ((e.State == EntityState.Added) || (e.State == EntityState.Modified))))
             {
                 var entity = (IAuditable)entry.Entity;
-                if (entry.State == EntityState.Added && entity.CreatedOn == default(DateTime))
+                if (entry.State == EntityState.Added && !entity.CreatedOn.HasValue)
                 {
                     entity.CreatedOn = DateTime.Now;
                 }

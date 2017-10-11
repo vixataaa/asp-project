@@ -10,21 +10,22 @@ using JobSystem.ViewModels.Manage;
 using JobSystem.ViewModels.Account;
 using JobSystem.Data;
 using JobSystem.Data.Models;
+using JobSystem.Services.Data.Contracts;
 
 namespace JobSystem.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly IJobSystemData data;
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly IUsersService userService;
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IJobSystemData data)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUsersService userService)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
-            this.data = data;
+            this.userService = userService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -62,6 +63,7 @@ namespace JobSystem.Web.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.ProfileChangeSuccess ? "Your profile was successfully updated."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -118,13 +120,11 @@ namespace JobSystem.Web.Controllers
         public ActionResult ChangeDetails(ChangeUserDetailsViewModel model)
         {
             var id = User.Identity.GetUserId();
-            
+
             if (this.User.IsInRole("Person"))
             {
-                var user = this.data.Users
-                .All
-                .OfType<Person>()
-                .FirstOrDefault(x => x.Id == id);
+                var user = this.userService.AllPeople()
+                    .FirstOrDefault(x => x.Id == id);
 
                 if (!string.IsNullOrEmpty(model.FirstName))
                 {
@@ -136,26 +136,26 @@ namespace JobSystem.Web.Controllers
                     user.LastName = model.LastName;
                 }
 
-                this.data.Users.Update(user);
-                this.data.SaveChanges();
+                this.userService.UpdateUserProfile(user);
+
+                return RedirectToAction("Index", new { Message = ManageMessageId.ProfileChangeSuccess });
             }
-            else
+            else if (this.User.IsInRole("Firm"))
             {
-                var user = this.data.Users
-                .All
-                .OfType<Firm>()
-                .FirstOrDefault(x => x.Id == id);
+                var user = this.userService.AllFirms()
+                    .FirstOrDefault(x => x.Id == id);
 
                 if (!string.IsNullOrEmpty(model.FirmName))
                 {
                     user.FirmName = model.FirmName;
                 }
 
-                this.data.Users.Update(user);
-                this.data.SaveChanges();
+                this.userService.UpdateUserProfile(user);
+
+                return RedirectToAction("Index", new { Message = ManageMessageId.ProfileChangeSuccess });
             }
 
-            return this.View();
+            return View();
         }
 
         protected override void Dispose(bool disposing)
@@ -199,16 +199,6 @@ namespace JobSystem.Web.Controllers
             return false;
         }
 
-        private bool HasPhoneNumber()
-        {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            if (user != null)
-            {
-                return user.PhoneNumber != null;
-            }
-            return false;
-        }
-
         public enum ManageMessageId
         {
             AddPhoneSuccess,
@@ -217,6 +207,7 @@ namespace JobSystem.Web.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            ProfileChangeSuccess,
             Error
         }
 
