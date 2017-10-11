@@ -119,43 +119,21 @@ namespace SecondHand.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ChangeDetails(ChangeUserDetailsViewModel model)
         {
-            var id = User.Identity.GetUserId();
+            var user = this.userService.GetById(User.Identity.GetUserId());
 
-            if (this.User.IsInRole("Person"))
+            if (!string.IsNullOrEmpty(model.FirstName))
             {
-                var user = this.userService.AllPeople()
-                    .FirstOrDefault(x => x.Id == id);
-
-                if (!string.IsNullOrEmpty(model.FirstName))
-                {
-                    user.FirstName = model.FirstName;
-                }
-
-                if (!string.IsNullOrEmpty(model.LastName))
-                {
-                    user.LastName = model.LastName;
-                }
-
-                this.userService.UpdateUserProfile(user);
-
-                return RedirectToAction("Index", new { Message = ManageMessageId.ProfileChangeSuccess });
-            }
-            else if (this.User.IsInRole("Firm"))
-            {
-                var user = this.userService.AllFirms()
-                    .FirstOrDefault(x => x.Id == id);
-
-                if (!string.IsNullOrEmpty(model.FirmName))
-                {
-                    user.FirmName = model.FirmName;
-                }
-
-                this.userService.UpdateUserProfile(user);
-
-                return RedirectToAction("Index", new { Message = ManageMessageId.ProfileChangeSuccess });
+                user.FirstName = model.FirstName;
             }
 
-            return View();
+            if (!string.IsNullOrEmpty(model.LastName))
+            {
+                user.LastName = model.LastName;
+            }
+
+            this.userService.UpdateUserProfile(user);
+
+            return RedirectToAction("Index", new { Message = ManageMessageId.ProfileChangeSuccess });
         }
 
         protected override void Dispose(bool disposing)

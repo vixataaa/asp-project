@@ -89,9 +89,6 @@
     <Compile Include="Account\ResetPasswordViewModel.cs" />
     <Compile Include="Account\SendCodeViewModel.cs" />
     <Compile Include="Account\VerifyCodeViewModel.cs" />
-    <Compile Include="Jobs\AddJobViewModel.cs" />
-    <Compile Include="Jobs\JobDetailsViewModel.cs" />
-    <Compile Include="Jobs\JobsIndexViewModel.cs" />
     <Compile Include="Manage\AddPhoneNumberViewModel.cs" />
     <Compile Include="Manage\ChangeUserDetailsViewModel.cs" />
     <Compile Include="Manage\ChangePasswordViewModel.cs" />

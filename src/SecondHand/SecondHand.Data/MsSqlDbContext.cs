@@ -17,8 +17,6 @@ namespace SecondHand.Data
         {            
         }
 
-        public IDbSet<Job> Jobs { get; set; }
-
         public static MsSqlDbContext Create()
         {
             return new MsSqlDbContext();

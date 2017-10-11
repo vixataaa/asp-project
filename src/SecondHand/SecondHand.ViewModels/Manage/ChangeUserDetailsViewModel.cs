@@ -14,8 +14,5 @@ namespace SecondHand.ViewModels.Manage
 
         [Display(Name = "Last name")]
         public string LastName { get; set; }
-
-        [Display(Name = "Firm name")]
-        public string FirmName { get; set; }
     }
 }

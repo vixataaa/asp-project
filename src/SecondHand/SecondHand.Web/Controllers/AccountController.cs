@@ -103,25 +103,10 @@ namespace SecondHand.Web.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user = null;
-                string roleName = "";
 
-                if (model.RegisterType == "Person")
-                {
-                    user = new Person { UserName = model.Email, Email = model.Email };
-                    roleName = "Person";
-                }
-                else if (model.RegisterType == "Firm")
-                {
-                    user = new Firm { UserName = model.Email, Email = model.Email };
-                    roleName = "Firm";
-                }
-                else
-                {
-                    // Probably handle error with invalid user type
-                }
+                user = new ApplicationUser { UserName = model.Email, Email = model.Email, CreatedOn = DateTime.Now };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
-                this.UserManager.AddToRole(user.Id, roleName);
 
                 if (result.Succeeded)
                 {

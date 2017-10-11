@@ -13,7 +13,7 @@ namespace SecondHand.Data.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201710091040519_Initial"; }
+            get { return "201710112345582_Initial"; }
         }
         
         string IMigrationMetadata.Source

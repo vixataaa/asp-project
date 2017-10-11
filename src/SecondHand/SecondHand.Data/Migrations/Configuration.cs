@@ -28,9 +28,7 @@ namespace SecondHand.Data.Migrations
                 // Init roles
                 var initialRoles = new string[]
                 {
-                    "Admin",
-                    "Person",
-                    "Firm"
+                    "Admin"
                 };
 
                 var roleStore = new RoleStore<IdentityRole>(context);

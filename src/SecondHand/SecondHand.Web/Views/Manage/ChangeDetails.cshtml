@@ -4,34 +4,19 @@
 {
     @Html.AntiForgeryToken()
 
-    if (User.IsInRole("Person"))
-    {
-        <div class="form-group">
-            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
         </div>
-    }
-    else if (User.IsInRole("Firm"))
-    {
-        <div class="form-group">
-            @Html.LabelFor(m => m.FirmName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.FirmName, new { @class = "form-control" })
-            </div>
-        </div>
-    }
-
-
-
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

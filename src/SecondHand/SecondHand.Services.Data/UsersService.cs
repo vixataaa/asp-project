@@ -18,20 +18,6 @@ namespace SecondHand.Services.Data
             this.context = context;
         }
 
-        public IEnumerable<Firm> AllFirms()
-        {
-            return this.users.All
-                .OfType<Firm>()
-                .AsEnumerable();
-        }
-
-        public IEnumerable<Person> AllPeople()
-        {
-            return this.users.All
-                .OfType<Person>()
-                .AsEnumerable();
-        }
-
         public ApplicationUser GetById(string id)
         {
             var user = this.users.All.FirstOrDefault(x => x.Id == id);

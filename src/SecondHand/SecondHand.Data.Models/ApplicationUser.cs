@@ -10,11 +10,15 @@ using SecondHand.Data.Models.Contracts;
 namespace SecondHand.Data.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public abstract class ApplicationUser : IdentityUser, IAuditable, IDeletable
+    public class ApplicationUser : IdentityUser, IAuditable, IDeletable
     {
         public ApplicationUser()
         {
         }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         [Index]
         public bool IsDeleted { get; set; }

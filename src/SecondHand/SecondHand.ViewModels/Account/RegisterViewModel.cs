@@ -11,22 +11,6 @@ namespace SecondHand.ViewModels.Account
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Registration type")]
-        public string RegisterType { get; set; }
-
-        public IEnumerable<SelectListItem> RegisterTypes
-        {
-            get
-            {
-                return new List<SelectListItem>
-                {
-                    new SelectListItem { Text = "Person", Value = "Person" },
-                    new SelectListItem { Text = "Firm", Value = "Firm" }
-                };
-            }
-        }
-
-        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

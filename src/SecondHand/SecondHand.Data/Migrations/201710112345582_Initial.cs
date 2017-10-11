@@ -35,6 +35,8 @@ namespace SecondHand.Data.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        FirstName = c.String(),
+                        LastName = c.String(),
                         IsDeleted = c.Boolean(nullable: false),
                         DeletedOn = c.DateTime(),
                         CreatedOn = c.DateTime(),
@@ -50,10 +52,6 @@ namespace SecondHand.Data.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
-                        FirmName = c.String(),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        Discriminator = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.IsDeleted)
