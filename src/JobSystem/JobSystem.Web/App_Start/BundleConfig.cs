@@ -27,6 +27,10 @@ namespace JobSystem.Web
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
+            bundles.Add(new StyleBundle("~/Content/jobsIndex").Include(
+                "~/Content/Custom/jobsIndex.css"
+                ));
+
             //BundleTable.EnableOptimizations = true;
         }
     }

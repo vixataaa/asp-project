@@ -16,5 +16,7 @@ namespace JobSystem.Services.Data.Contracts
         void AddJob(Job model);
 
         int RecordsCount(string query = "");
+
+        Job GetById(Guid id);
     }
 }

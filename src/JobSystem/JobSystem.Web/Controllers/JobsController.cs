@@ -43,6 +43,23 @@ namespace JobSystem.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult JobDetails(Guid id)
+        {
+            var job = this.jobService.GetById(id);
+            // Null check.
+
+            // TODO: Mapper
+            var viewModel = new JobDetailsViewModel
+            {
+                Id = job.Id,
+                Title = job.Title,
+                Description = job.Description
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpGet]
         [Authorize(Roles = "Firm")]
         public ActionResult AddJob()
         {

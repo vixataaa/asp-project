@@ -62,5 +62,10 @@ namespace JobSystem.Services.Data
         {
             return this.jobs.All.ToList();
         }
+
+        public Job GetById(Guid id)
+        {
+            return this.jobs.All.FirstOrDefault(x => x.Id == id);
+        }
     }
 }
