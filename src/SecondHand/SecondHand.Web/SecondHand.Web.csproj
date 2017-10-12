@@ -216,6 +216,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\CollectionExtensions.cs" />
     <Compile Include="Infrastructure\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\IMapFrom.cs" />
     <Compile Include="Infrastructure\MapperUtils.cs" />
@@ -306,10 +307,13 @@
     <Content Include="Views\Advertisements\Index.cshtml" />
     <Content Include="Views\Advertisements\AddAdvertisement.cshtml" />
     <Content Include="Views\Advertisements\Details.cshtml" />
+    <Content Include="Views\Advertisements\_FilterSidenav.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AdvertisementListItemViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\Identity\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

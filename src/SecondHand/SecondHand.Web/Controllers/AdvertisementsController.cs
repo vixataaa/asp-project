@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using SecondHand.Data.Models;
+using SecondHand.Services.Data.Common;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Web.Infrastructure;
 using SecondHand.Web.Models.Advertisements;
@@ -14,6 +15,8 @@ namespace SecondHand.Web.Controllers
 {
     public class AdvertisementsController : Controller
     {
+        private const int DEFAULT_PAGE_SIZE = 6;
+
         private readonly IUsersService userService;
         private readonly IAdvertisementsService advertService;
         private readonly ICategoryService categoryService;
@@ -29,20 +32,19 @@ namespace SecondHand.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(int pageNumber = 1, int pageSize = DEFAULT_PAGE_SIZE, string query = "", 
+            string sortProperty = "", SortType sortType = SortType.Descending, 
+            string category = "")
         {
-            // Defer execution
             var advertisements = this.advertService
-                .GetAdvertisements()
-                .OrderByDescending(x => x.CreatedOn)
+                .GetAdvertisements(pageNumber, pageSize, query, sortProperty, sortType, category)
                 .MapTo<AdvertisementListItemViewModel>()
                 .ToList();
 
-
-
             var viewModel = new AdvertisementIndexViewModel
             {
-                Advertisements = advertisements
+                Advertisements = advertisements,
+                PageCount = (int)Math.Ceiling((double)this.advertService.LastQueryRecordsCount / pageSize)
             };
 
             return this.View(viewModel);

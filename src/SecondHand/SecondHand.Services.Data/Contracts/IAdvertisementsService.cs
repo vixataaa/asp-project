@@ -10,6 +10,8 @@ namespace SecondHand.Services.Data.Contracts
 {
     public interface IAdvertisementsService
     {
+        int LastQueryRecordsCount { get; }
+
         void CreateAdvertisement(Advertisement adv, string categoryName);
 
         IQueryable<Advertisement> GetAdvertisements();

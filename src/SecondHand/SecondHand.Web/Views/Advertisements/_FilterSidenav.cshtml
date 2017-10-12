@@ -1,0 +1,32 @@
+﻿@model SecondHand.Web.Models.Advertisements.AdvertisementIndexViewModel
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    @using (Html.BeginForm("Index", "Advertisements", FormMethod.Get))
+    {
+        <div class="filter-label">Sort:</div>
+        foreach (var prop in Model.SortableProperties)
+        {
+            <div class="radio">
+                <label>@Html.RadioButtonFor(x => x.SortProperty, prop) @(prop == "" ? "Creation date" : prop)</label>
+            </div>
+        }
+
+        <div class="filter-label">Sort type:</div>
+        foreach (var type in Model.SortTypes)
+        {
+            <div class="radio">
+                <label>@Html.RadioButtonFor(x => x.SortType, type) @type</label>
+            </div>
+        }
+
+        <div class="filter-label">
+            <input id="submit-btn" type="submit" class="btn btn-info" value="Filter"/>
+        </div>
+    }
+</div>
+
+<div id="main">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Filter</span>
+</div>

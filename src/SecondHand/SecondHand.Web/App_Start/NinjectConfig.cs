@@ -83,11 +83,19 @@ namespace SecondHand.Web
             {
                 x.FromAssemblyContaining(typeof(IUsersService))
                     .SelectAllClasses()
-                    .BindDefaultInterface();
+                    .BindDefaultInterface()
+                    .Configure((cfg, type) =>
+                    {
+                        cfg.InRequestScope();
+                    });
 
                 x.FromAssemblyContaining(typeof(IUsersRepository))
                     .SelectAllClasses()
                     .BindDefaultInterface();
+                    //.Configure((cfg, type) =>
+                    //{
+                    //    cfg.InRequestScope();
+                    //});
             });
 
 

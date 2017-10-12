@@ -25,16 +25,47 @@
         transition: 0.3s;
     }
 
-        .sidenav a:hover {
-            color: #f1f1f1;
-        }
-
-    .sidenav .closebtn {
-        top: 0;
-        right: 25px;
-        font-size: 36px;
-        margin-left: 5em;
+    .sidenav form .radio label {
+        padding: 0px 8px 0px 2.5em;
+        text-decoration: none;
+        font-size: 16px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
     }
+
+.filter-label {
+    font-weight: bold;
+    padding: 1.5em 8px 0px 0.9em;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+#submit-btn {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+    display: block;
+}
+
+.sidenav form .radio label input {
+    padding-top: 20px;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 5em;
+}
 
 #main {
     transition: margin-left .5s;

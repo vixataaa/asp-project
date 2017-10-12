@@ -1,0 +1,15 @@
+﻿@model SecondHand.Web.Models.Advertisements.AdvertisementListItemViewModel
+
+<div class="col-md-4">
+    <div class="panel-info">
+        <div class="panel-heading">
+            <h4>@Html.ActionLink(Model.Title, "Details", new { id = Model.Id.ToString() })</h4>
+        </div>
+        <div class="panel-footer">
+            <img src=@Model.PrimaryImageUrl style="height:300px; width:auto" class="img-thumbnail img-responsive" />
+            <p>Created: @Model.CreatedOn</p>
+            <p>Added by: @Model.AdderUsername</p>
+            <p>Price: @Model.Price @Model.CurrencyType</p>
+        </div>
+    </div>
+</div>

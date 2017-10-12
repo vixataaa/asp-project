@@ -16,12 +16,22 @@ namespace SecondHand.Services.Data
         private readonly ICategoryRepository categories;
         private readonly IAdvertisementsRepository advertisements;
         private readonly ISaveContext context;
+        private int lastQueryRecordsCount;
 
         public AdvertisementsService(IAdvertisementsRepository advertisements, ICategoryRepository categories, ISaveContext context)
         {
             this.advertisements = advertisements;
             this.categories = categories;
             this.context = context;
+            this.lastQueryRecordsCount = 0;
+        }
+
+        public int LastQueryRecordsCount
+        {
+            get
+            {
+                return this.lastQueryRecordsCount;
+            }
         }
 
         public void CreateAdvertisement(Advertisement adv, string categoryName)
@@ -95,9 +105,18 @@ namespace SecondHand.Services.Data
                     }
                     break;
                 default:
-                    result = result.OrderByDescending(x => x.CreatedOn);
+                    if (sortType == SortType.Ascending)
+                    {
+                        result = result.OrderBy(x => x.CreatedOn);
+                    }
+                    else
+                    {
+                        result = result.OrderByDescending(x => x.CreatedOn);
+                    }
                     break;
             }
+
+            this.lastQueryRecordsCount = result.Count();
 
             result = result
                 .Skip((pageNumber - 1) * pageSize)
