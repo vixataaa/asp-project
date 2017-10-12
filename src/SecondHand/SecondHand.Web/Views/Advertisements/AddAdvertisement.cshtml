@@ -1,4 +1,4 @@
-﻿@model SecondHand.Web.Models.Advertisements.AddAdvertisementViewModel
+﻿@model SecondHand.Web.Models.Advertisements.AdvertisementCreationViewModel
 @{
     ViewBag.Title = "Add advertisement";
 }
@@ -13,7 +13,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Category, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Category, new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.Category, Model.Categories, new { @class = "form-control" })
         </div>
     </div>
 
@@ -69,7 +69,7 @@
     <div class="form-group">
         @Html.LabelFor(m => m.CurrencyType, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.CurrencyType, new { @class = "form-control" })
+            @Html.DropDownListFor(m => m.CurrencyType, Model.CurrencyTypes,new { @class = "form-control" })
         </div>
     </div>
 

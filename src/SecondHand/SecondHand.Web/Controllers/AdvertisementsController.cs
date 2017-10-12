@@ -16,12 +16,15 @@ namespace SecondHand.Web.Controllers
     {
         private readonly IUsersService userService;
         private readonly IAdvertisementsService advertService;
+        private readonly ICategoryService categoryService;
         private readonly IMapper mapper;
 
-        public AdvertisementsController(IUsersService userService, IAdvertisementsService advertService, IMapper mapper)
+        public AdvertisementsController(IUsersService userService, IAdvertisementsService advertService
+            , ICategoryService categoryService, IMapper mapper)
         {
             this.userService = userService;
             this.advertService = advertService;
+            this.categoryService = categoryService;
             this.mapper = mapper;
         }
 
@@ -48,25 +51,41 @@ namespace SecondHand.Web.Controllers
         [Authorize]
         public ActionResult AddAdvertisement()
         {
-            return this.View();
+            var categories = this.categoryService
+                .GetAll()
+                .Select(x => new SelectListItem() { Text = x.Name, Value = x.Name })
+                .ToList();
+
+            var viewModel = new AdvertisementCreationViewModel
+            {
+                Categories = categories
+            };
+
+            return this.View(viewModel);
         }
 
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult AddAdvertisement(AddAdvertisementViewModel model)
+        public ActionResult AddAdvertisement(AdvertisementCreationViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            var dto = this.mapper.Map<Advertisement>(model);
-            dto.AddedBy = this.userService.GetByUsername(User.Identity.Name);
+            var dbModel = this.mapper.Map<Advertisement>(model);
+            dbModel.AddedBy = this.userService.GetByUsername(User.Identity.Name);
 
-            this.advertService.CreateAdvertisement(dto, model.Category);
+            this.advertService.CreateAdvertisement(dbModel, model.Category);
 
             return this.RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Details(Guid id)
+        {
+            return this.View();
         }
     }
 }

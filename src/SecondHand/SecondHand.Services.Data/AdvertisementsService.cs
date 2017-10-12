@@ -31,6 +31,12 @@ namespace SecondHand.Services.Data
             if (category != null)
             {
                 adv.Category = category;
+
+                foreach (var photo in adv.Photos)
+                {
+                    photo.Advertisement = adv;
+                }
+
                 this.advertisements.Add(adv);
                 this.context.SaveChanges();
             }

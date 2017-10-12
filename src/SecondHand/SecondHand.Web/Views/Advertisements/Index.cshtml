@@ -3,10 +3,21 @@
     ViewBag.Title = "Advertisements";
 }
 
-@foreach (var ad in Model.Advertisements)
-{
-    <h4>@ad.Title</h4>
-    <p>Created: @ad.CreatedOn</p>
-    <p>Added by: @ad.AdderUsername</p>
-}
-
+<div class="container-fluid">
+        @foreach (var ad in Model.Advertisements)
+        {
+            <div class="col-md-4">
+                <div class="panel-info">
+                    <div class="panel-heading">
+                        <h4>@Html.ActionLink(ad.Title, "Details", new { id = ad.Id.ToString() })</h4>
+                    </div>
+                    <div class="panel-footer">
+                        <img src=@ad.PrimaryImageUrl style="height:300px; width:auto" class="img-thumbnail img-responsive" />
+                        <p>Created: @ad.CreatedOn</p>
+                        <p>Added by: @ad.AdderUsername</p>
+                        <p>Price: @ad.Price @ad.CurrencyType</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>

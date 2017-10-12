@@ -230,6 +230,7 @@
     <Compile Include="Models\Account\SendCodeViewModel.cs" />
     <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
     <Compile Include="Models\Advertisements\AddAdvertisementViewModel.cs" />
+    <Compile Include="Models\Advertisements\AdvertisementCreationViewModel.cs" />
     <Compile Include="Models\Advertisements\AdvertisementDetailsViewModel.cs" />
     <Compile Include="Models\Advertisements\AdvertisementIndexViewModel.cs" />
     <Compile Include="Models\Advertisements\AdvertisementListItemViewModel.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Views\Manage\ChangeDetails.cshtml" />
     <Content Include="Views\Advertisements\Index.cshtml" />
     <Content Include="Views\Advertisements\AddAdvertisement.cshtml" />
+    <Content Include="Views\Advertisements\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

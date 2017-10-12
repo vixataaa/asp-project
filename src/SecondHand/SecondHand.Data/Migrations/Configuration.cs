@@ -39,8 +39,24 @@ namespace SecondHand.Data.Migrations
                     roleManager.Create(new IdentityRole { Name = r });
                 }
 
-                // Init default admin
+                var categories = new List<Category>()
+                {
+                    new Category { Name = "Estates" },
+                    new Category { Name = "Vehicles" },
+                    new Category { Name = "Electronics" },
+                    new Category { Name = "Sport" },
+                    new Category { Name = "Pets" },
+                    new Category { Name = "Books" },
+                    new Category { Name = "Garden" },
+                    new Category { Name = "Fashion" }
+                };
 
+                foreach (var cat in categories)
+                {
+                    context.Categories.Add(cat);
+                }
+
+                // Init default admin
                 //var userStore = new UserStore<ApplicationUser>(context);
                 //var userManager = new UserManager<ApplicationUser>(userStore);
                 //var user = new Person
@@ -53,6 +69,8 @@ namespace SecondHand.Data.Migrations
 
                 //userManager.Create(user, AdministratorPassword);
                 //userManager.AddToRole(user.Id, "Admin");
+
+                context.SaveChanges();
             }
         }
     }
