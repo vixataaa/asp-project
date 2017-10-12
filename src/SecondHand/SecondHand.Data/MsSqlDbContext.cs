@@ -17,6 +17,12 @@ namespace SecondHand.Data
         {            
         }
 
+        public IDbSet<Advertisement> Advertisements { get; set; }
+
+        public IDbSet<Category> Categories { get; set; }
+
+        public IDbSet<Photo> Photos { get; set; }
+
         public static MsSqlDbContext Create()
         {
             return new MsSqlDbContext();

@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201710112345582_Initial.Designer.cs">
       <DependentUpon>201710112345582_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710121008077_AdvertisementModels.cs" />
+    <Compile Include="Migrations\201710121008077_AdvertisementModels.Designer.cs">
+      <DependentUpon>201710121008077_AdvertisementModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MsSqlDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +84,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201710112345582_Initial.resx">
       <DependentUpon>201710112345582_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710121008077_AdvertisementModels.resx">
+      <DependentUpon>201710121008077_AdvertisementModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

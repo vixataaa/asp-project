@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
 using SecondHand.Data.Models.Contracts;
+using System.Collections.Generic;
 
 namespace SecondHand.Data.Models
 {
@@ -19,6 +20,8 @@ namespace SecondHand.Data.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public virtual ICollection<Advertisement> Advertisements { get; set; }
 
         [Index]
         public bool IsDeleted { get; set; }
