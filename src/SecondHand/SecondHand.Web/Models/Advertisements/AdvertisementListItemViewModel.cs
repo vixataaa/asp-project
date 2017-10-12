@@ -10,7 +10,7 @@ namespace SecondHand.Web.Models.Advertisements
 {
     public class AdvertisementListItemViewModel : IMapFrom<Advertisement>, IHaveCustomMappings
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         public string Title { get; set; }
 
@@ -31,7 +31,7 @@ namespace SecondHand.Web.Models.Advertisements
             configuration.CreateMap<Advertisement, AdvertisementListItemViewModel>()
                 .ForMember(advVM => advVM.AdderUsername, cfg => cfg.MapFrom(x => x.AddedBy.UserName))
                 .ForMember(advVM => advVM.PrimaryImageUrl, cfg => cfg.MapFrom(x => x.Photos.Count > 0 ? x.Photos.FirstOrDefault().Url : "http://via.placeholder.com/400x400?text=No+Image"))
-                .ForMember(advVM => advVM.Id, cfg => cfg.MapFrom(x => x.AddedBy.Id));
+                .ForMember(advVM => advVM.AddedById, cfg => cfg.MapFrom(x => x.AddedBy.Id));
 
         }
     }

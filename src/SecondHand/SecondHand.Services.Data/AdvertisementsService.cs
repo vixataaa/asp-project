@@ -105,5 +105,10 @@ namespace SecondHand.Services.Data
 
             return result;
         }
+
+        public Advertisement GetById(Guid id)
+        {
+            return this.advertisements.GetById(id);
+        }
     }
 }

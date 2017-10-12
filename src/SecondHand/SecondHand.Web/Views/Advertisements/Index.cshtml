@@ -3,21 +3,43 @@
     ViewBag.Title = "Advertisements";
 }
 
+@section styles {
+    @Styles.Render("~/Content/sidenav")
+}
+
+@section scripts {
+    @Scripts.Render("~/custom/sidenav")
+}
+
+
+
 <div class="container-fluid">
-        @foreach (var ad in Model.Advertisements)
-        {
-            <div class="col-md-4">
-                <div class="panel-info">
-                    <div class="panel-heading">
-                        <h4>@Html.ActionLink(ad.Title, "Details", new { id = ad.Id.ToString() })</h4>
-                    </div>
-                    <div class="panel-footer">
-                        <img src=@ad.PrimaryImageUrl style="height:300px; width:auto" class="img-thumbnail img-responsive" />
-                        <p>Created: @ad.CreatedOn</p>
-                        <p>Added by: @ad.AdderUsername</p>
-                        <p>Price: @ad.Price @ad.CurrencyType</p>
-                    </div>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <div id="main">
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Filter</span>
+    </div>
+
+    @foreach (var ad in Model.Advertisements)
+    {
+        <div class="col-md-4">
+            <div class="panel-info">
+                <div class="panel-heading">
+                    <h4>@Html.ActionLink(ad.Title, "Details", new { id = ad.Id.ToString() })</h4>
+                </div>
+                <div class="panel-footer">
+                    <img src=@ad.PrimaryImageUrl style="height:300px; width:auto" class="img-thumbnail img-responsive" />
+                    <p>Created: @ad.CreatedOn</p>
+                    <p>Added by: @ad.AdderUsername</p>
+                    <p>Price: @ad.Price @ad.CurrencyType</p>
                 </div>
             </div>
-        }
-    </div>
+        </div>
+    }
+</div>

@@ -34,6 +34,7 @@ namespace SecondHand.Web.Controllers
             // Defer execution
             var advertisements = this.advertService
                 .GetAdvertisements()
+                .OrderByDescending(x => x.CreatedOn)
                 .MapTo<AdvertisementListItemViewModel>()
                 .ToList();
 
@@ -85,7 +86,16 @@ namespace SecondHand.Web.Controllers
         [HttpGet]
         public ActionResult Details(Guid id)
         {
-            return this.View();
+            var advertisement = this.advertService.GetById(id);
+
+            if (advertisement == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            var viewModel = this.mapper.Map<AdvertisementDetailsViewModel>(advertisement);
+
+            return this.View(viewModel);
         }
     }
 }

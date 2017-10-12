@@ -18,5 +18,7 @@ namespace SecondHand.Services.Data.Contracts
 
         IQueryable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "",
             string sortProperty = "", SortType sortType = SortType.Ascending, string category = "");
+
+        Advertisement GetById(Guid id);
     }
 }

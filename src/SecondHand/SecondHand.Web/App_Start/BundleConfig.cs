@@ -30,6 +30,12 @@ namespace SecondHand.Web
             bundles.Add(new ScriptBundle("~/custom/addAdvertisement").Include(
                 "~/Scripts/Custom/addAdvertisement.js"));
 
+            bundles.Add(new ScriptBundle("~/custom/sidenav").Include(
+                "~/Scripts/Custom/sidenav.js"));
+
+            bundles.Add(new StyleBundle("~/Content/sidenav").Include(
+                "~/Content/Custom/sidenav.css"));
+
             //BundleTable.EnableOptimizations = true;
         }
     }
