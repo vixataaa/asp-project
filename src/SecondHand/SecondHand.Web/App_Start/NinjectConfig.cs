@@ -13,6 +13,8 @@ using SecondHand.Data;
 using SecondHand.Data.Contracts;
 using SecondHand.Data.Models;
 using SecondHand.Services.Data.Contracts;
+using SecondHand.Data.Repositories.Contracts;
+using AutoMapper;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectConfig), "Stop")]
@@ -90,6 +92,8 @@ namespace SecondHand.Web
 
 
             kernel.Bind(typeof(DbContext), typeof(MsSqlDbContext)).To<MsSqlDbContext>().InRequestScope();
+
+            kernel.Bind<IMapper>().ToMethod(ctx => Mapper.Instance).InSingletonScope();
 
             kernel.Bind(typeof(IUserStore<ApplicationUser>)).To(typeof(UserStore<ApplicationUser>));
             kernel.Bind<IAuthenticationManager>().ToMethod(c =>

@@ -53,9 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\Contracts\IAdvertisementsRepository.cs" />
     <Compile Include="Contracts\IEfRepository.cs" />
     <Compile Include="Contracts\ISaveContext.cs" />
-    <Compile Include="Contracts\IUsersRepository.cs" />
+    <Compile Include="Repositories\Contracts\ICategoryRepository.cs" />
+    <Compile Include="Repositories\Contracts\IPhotosRepository.cs" />
+    <Compile Include="Repositories\Contracts\IUsersRepository.cs" />
     <Compile Include="Migrations\201710112345582_Initial.cs" />
     <Compile Include="Migrations\201710112345582_Initial.Designer.cs">
       <DependentUpon>201710112345582_Initial.cs</DependentUpon>
@@ -67,7 +71,9 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MsSqlDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AdvertisementsRepository.cs" />
     <Compile Include="Repositories\Base\EfRepository.cs" />
+    <Compile Include="Repositories\PhotosRepository.cs" />
     <Compile Include="Repositories\UsersRepository.cs" />
     <Compile Include="SaveContext.cs" />
   </ItemGroup>

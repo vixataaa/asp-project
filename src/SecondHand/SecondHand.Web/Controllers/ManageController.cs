@@ -6,11 +6,11 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using SecondHand.ViewModels.Account;
+using SecondHand.Web.Models.Account;
 using SecondHand.Data;
 using SecondHand.Data.Models;
 using SecondHand.Services.Data.Contracts;
-using SecondHand.ViewModels.Manage;
+using SecondHand.Web.Models.Manage;
 
 namespace SecondHand.Web.Controllers
 {

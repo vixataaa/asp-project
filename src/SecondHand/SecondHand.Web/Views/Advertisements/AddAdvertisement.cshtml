@@ -1,0 +1,86 @@
+﻿@model SecondHand.Web.Models.Advertisements.AddAdvertisementViewModel
+@{
+    ViewBag.Title = "Add advertisement";
+}
+
+@using (Html.BeginForm("AddAdvertisement", "Advertisements", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>Create a new advertisement.</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Category, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Category, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="img1-input" class="col-md-2 control-label">Photo</label>
+        <div class="col-md-10">
+            <label for="img1-input" class="control-label btn btn-primary" id="img1-status">Upload</label>
+            <input type="file" id="img1-input" class="hidden" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="img2-input" class="col-md-2 control-label">Photo</label>
+        <div class="col-md-10">
+            <label for="img2-input" class="control-label btn btn-primary" id="img2-status">Upload</label>
+            <input type="file" id="img2-input" class="hidden" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="img3-input" class="col-md-2 control-label">Photo</label>
+        <div class="col-md-10">
+            <label for="img3-input" class="control-label btn btn-primary" id="img3-status">Upload</label>
+            <input type="file" id="img3-input" class="hidden"/>
+        </div>
+    </div>
+
+    @Html.HiddenFor(m => m.Photo1, new { id = "photo-1-url" })
+    @Html.HiddenFor(m => m.Photo2, new { id = "photo-2-url" })
+    @Html.HiddenFor(m => m.Photo3, new { id = "photo-3-url" })
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Price, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CurrencyType, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.CurrencyType, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Publish" id="submit-btn"/>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/custom/addAdvertisement")
+}

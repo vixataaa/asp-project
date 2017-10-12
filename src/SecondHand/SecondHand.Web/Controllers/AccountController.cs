@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SecondHand.Data.Models;
-using SecondHand.ViewModels.Account;
+using SecondHand.Web.Models.Account;
 
 namespace SecondHand.Web.Controllers
 {

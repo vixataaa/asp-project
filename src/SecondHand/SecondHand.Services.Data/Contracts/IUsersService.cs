@@ -12,5 +12,7 @@ namespace SecondHand.Services.Data.Contracts
         void UpdateUserProfile(ApplicationUser user);
 
         ApplicationUser GetById(string id);
+
+        ApplicationUser GetByUsername(string username);
     }
 }

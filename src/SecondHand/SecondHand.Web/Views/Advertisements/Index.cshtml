@@ -1,0 +1,12 @@
+﻿@model SecondHand.Web.Models.Advertisements.AdvertisementIndexViewModel
+@{
+    ViewBag.Title = "Advertisements";
+}
+
+@foreach (var ad in Model.Advertisements)
+{
+    <h4>@ad.Title</h4>
+    <p>Created: @ad.CreatedOn</p>
+    <p>Added by: @ad.AdderUsername</p>
+}
+

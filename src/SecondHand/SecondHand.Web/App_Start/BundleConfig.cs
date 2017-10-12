@@ -27,6 +27,9 @@ namespace SecondHand.Web
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
 
+            bundles.Add(new ScriptBundle("~/custom/addAdvertisement").Include(
+                "~/Scripts/Custom/addAdvertisement.js"));
+
             //BundleTable.EnableOptimizations = true;
         }
     }

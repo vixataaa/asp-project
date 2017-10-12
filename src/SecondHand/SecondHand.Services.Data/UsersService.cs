@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System.Linq;
 using SecondHand.Data.Contracts;
 using SecondHand.Data.Models;
 using SecondHand.Services.Data.Contracts;
+using SecondHand.Data.Repositories.Contracts;
+using System;
 
 namespace SecondHand.Services.Data
 {
@@ -20,7 +20,14 @@ namespace SecondHand.Services.Data
 
         public ApplicationUser GetById(string id)
         {
-            var user = this.users.All.FirstOrDefault(x => x.Id == id);
+            var user = this.users.GetById(id);
+
+            return user;
+        }
+
+        public ApplicationUser GetByUsername(string username)
+        {
+            var user = this.users.GetByUsername(username);
 
             return user;
         }
