@@ -1,7 +1,26 @@
 ﻿@model SecondHand.Web.Models.Advertisements.AdvertisementIndexViewModel
+@using SecondHand.Web.Infrastructure
+@using SecondHand.Services.Data.Common
 
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    @{ 
+        var queryDictionary = Request.QueryString.ToRouteValueDictionaryPaging(0);
+
+        var sortProperty = "createdOn";
+        var sortType = "descending";
+
+        if (queryDictionary.ContainsKey("sortProperty"))
+        {
+            sortProperty = queryDictionary["sortProperty"].ToString();
+        }
+
+        if (queryDictionary.ContainsKey("sortType"))
+        {
+            sortType = queryDictionary["sortType"].ToString();
+        }
+    }
 
     @using (Html.BeginForm("Index", "Advertisements", FormMethod.Get))
     {
@@ -9,7 +28,15 @@
         foreach (var prop in Model.SortableProperties)
         {
             <div class="radio">
-                <label>@Html.RadioButtonFor(x => x.SortProperty, prop) @(prop == "" ? "Creation date" : prop)</label>
+                @if (prop.ToLower() == sortProperty.ToLower())
+                {
+                    <label>@Html.RadioButtonFor(x => x.SortProperty, prop, new { @checked = "checked" }) @prop</label>
+                }
+                else
+                {
+                    <label>@Html.RadioButtonFor(x => x.SortProperty, prop) @prop</label>
+                }
+
             </div>
         }
 
@@ -17,7 +44,14 @@
         foreach (var type in Model.SortTypes)
         {
             <div class="radio">
-                <label>@Html.RadioButtonFor(x => x.SortType, type) @type</label>
+                @if (type.ToString().ToLower() == sortType)
+                {
+                    <label>@Html.RadioButtonFor(x => x.SortType, type, new { @checked = "checked" }) @type</label>
+                }
+                else
+                {
+                    <label>@Html.RadioButtonFor(x => x.SortType, type) @type</label>
+                }
             </div>
         }
 

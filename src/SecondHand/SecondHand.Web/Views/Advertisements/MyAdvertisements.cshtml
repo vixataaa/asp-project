@@ -1,0 +1,31 @@
+﻿@model string
+
+@(Html.Kendo()
+    .Grid<SecondHand.Web.Models.Advertisements.AdvertisementListItemViewModel>()
+    .Name("grid")
+    .Columns(cfg =>
+    {
+        cfg
+            .Template(@<text>
+            @Html.ActionLink(@item.Title, "Details", "Advertisements", new { id = @item.Id.ToString() })
+            </text>)
+            .ClientTemplate("<a href='/advertisements/#=Id#'>#=Title#</a>")
+            .Title("Title");
+        cfg.Bound(x => x.CreatedOn);
+        cfg.Bound(x => x.PrimaryImageUrl);
+        cfg.Bound(x => x.Price);
+        cfg.Bound(x => x.CurrencyType);
+
+    })
+    .Pageable(cfg =>
+    {
+        cfg.PageSizes(new List<int> { 5, 10 });
+    })
+    .Sortable()
+    .DataSource(cfg =>
+    {
+        cfg
+            .Ajax()
+            .Read(read => read.Action("UserAdvertisements", "Advertisements", new { username = ViewData["username"].ToString() }));
+    })
+    .Deferred())

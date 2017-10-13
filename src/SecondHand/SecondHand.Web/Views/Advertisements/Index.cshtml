@@ -15,19 +15,23 @@
 <div class="container-fluid">
     @Html.Partial("_FilterSidenav")
 
-    @foreach (var ad in Model.Advertisements)
-    {
-        @Html.DisplayFor(_ => ad)
-    }
+    <div class="row">
+        @foreach (var ad in Model.Advertisements)
+        {
+            @Html.DisplayFor(_ => ad)
+        }
+    </div>
 </div>
 
-<ul class="pagination">
-    @{
-        object queryParams = new { };
-    }
+<div class="row text-center">
+    <ul class="pagination">
+        @{
+            object queryParams = new { };
+        }
 
-    @for (int i = 0; i < Model.PageCount; i++)
-    {
-        <li>@Html.ActionLink((i + 1).ToString(), "Index", Request.QueryString.ToRouteValueDictionaryPaging(i + 1))</li>
-    }
-</ul>
+        @for (int i = 0; i < Model.PageCount; i++)
+        {
+            <li>@Html.ActionLink((i + 1).ToString(), "Index", Request.QueryString.ToRouteValueDictionaryPaging(i + 1))</li>
+        }
+    </ul>
+</div>

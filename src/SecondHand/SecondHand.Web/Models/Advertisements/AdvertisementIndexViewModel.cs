@@ -16,7 +16,7 @@ namespace SecondHand.Web.Models.Advertisements
             {
                 return new List<string>()
                 {
-                    "",
+                    "CreatedOn",
                     "Title",
                     "Price"
                 };

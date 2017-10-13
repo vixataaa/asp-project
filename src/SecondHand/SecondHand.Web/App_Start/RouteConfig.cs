@@ -23,6 +23,12 @@ namespace SecondHand.Web
             );
 
             routes.MapRoute(
+                name: "User profile",
+                url: "users/{username}",
+                defaults: new { controller = "Users", action = "UserProfile" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }

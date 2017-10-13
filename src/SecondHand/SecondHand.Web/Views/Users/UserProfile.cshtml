@@ -1,0 +1,69 @@
+﻿
+@model SecondHand.Web.Models.Users.UserProfileViewModel
+
+<div class="container">
+    <div class="row text-center">
+        <h2>@Model.Username`s profile:</h2>
+    </div>
+
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">User details</div>
+                <div class="panel-body">
+                    <p><strong>First name:</strong> @(Model.FirstName ?? "Not specified")</p>
+                    <p><strong>Last name:</strong> @(Model.LastName ?? "Not specified")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading text-center">User advertisements</div>
+                <div class="panel-body" style="padding: 0px;">
+                    @(Html.Kendo()
+                        .Grid<SecondHand.Web.Models.Advertisements.AdvertisementListItemViewModel>()
+                        .Name("grid")
+                        .Columns(cfg =>
+                        {
+                            cfg
+                                .Template(@<text>
+                                @Html.ActionLink(@item.Title, "Details", "Advertisements", new { id = @item.Id.ToString() })
+                                </text>)
+                                .ClientTemplate("<a href='/advertisements/#=Id#'>#=Title#</a>")
+                                .Title("Title");
+                            cfg.Bound(x => x.CreatedOn);
+                            cfg.Bound(x => x.PrimaryImageUrl);
+                            cfg.Bound(x => x.Price);
+                            cfg.Bound(x => x.CurrencyType);
+
+                        })
+                        .Pageable(cfg =>
+                        {
+                            cfg.PageSizes(new List<int> { 5, 10 });
+                        })
+                        .Sortable()
+                        .DataSource(cfg =>
+                        {
+                            cfg
+                                .Ajax()
+                                .Read(read => read.Action("UserAdvertisements", "Advertisements", new { username = Model.Username }));
+                        })
+                        .Deferred())
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

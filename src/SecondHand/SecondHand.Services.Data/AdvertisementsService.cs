@@ -17,11 +17,14 @@ namespace SecondHand.Services.Data
         private readonly IAdvertisementsRepository advertisements;
         private readonly ISaveContext context;
         private int lastQueryRecordsCount;
+        private readonly IUsersRepository users;
 
-        public AdvertisementsService(IAdvertisementsRepository advertisements, ICategoryRepository categories, ISaveContext context)
+        public AdvertisementsService(IAdvertisementsRepository advertisements, ICategoryRepository categories, IUsersRepository users,
+            ISaveContext context)
         {
             this.advertisements = advertisements;
             this.categories = categories;
+            this.users = users;
             this.context = context;
             this.lastQueryRecordsCount = 0;
         }
@@ -128,6 +131,11 @@ namespace SecondHand.Services.Data
         public Advertisement GetById(Guid id)
         {
             return this.advertisements.GetById(id);
+        }
+
+        public IQueryable<Advertisement> GetUserAdvertisements(string username)
+        {
+            return this.advertisements.All.Where(x => x.AddedBy.UserName == username);
         }
     }
 }

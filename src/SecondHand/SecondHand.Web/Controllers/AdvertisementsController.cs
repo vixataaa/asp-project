@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using SecondHand.Data.Models;
 using SecondHand.Services.Data.Common;
 using SecondHand.Services.Data.Contracts;
@@ -32,8 +34,8 @@ namespace SecondHand.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int pageNumber = 1, int pageSize = DEFAULT_PAGE_SIZE, string query = "", 
-            string sortProperty = "", SortType sortType = SortType.Descending, 
+        public ActionResult Index(int pageNumber = 1, int pageSize = DEFAULT_PAGE_SIZE, string query = "",
+            string sortProperty = "", SortType sortType = SortType.Descending,
             string category = "")
         {
             var advertisements = this.advertService
@@ -98,6 +100,27 @@ namespace SecondHand.Web.Controllers
             var viewModel = this.mapper.Map<AdvertisementDetailsViewModel>(advertisement);
 
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        public ActionResult MyAdvertisements()
+        {
+            this.ViewData["username"] = User.Identity.Name;
+
+            return this.View();
+        }
+        
+
+        public ActionResult UserAdvertisements([DataSourceRequest] DataSourceRequest request, string username)
+        {
+            var loggedUsername = username;
+
+            var result = this.advertService
+                .GetUserAdvertisements(loggedUsername)
+                .ProjectTo<AdvertisementListItemViewModel>()
+                .ToDataSourceResult(request);
+
+            return this.Json(result);
         }
     }
 }

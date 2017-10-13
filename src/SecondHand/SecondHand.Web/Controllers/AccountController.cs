@@ -72,7 +72,7 @@ namespace SecondHand.Web.Controllers
                 return View(model);
             }
 
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -104,7 +104,7 @@ namespace SecondHand.Web.Controllers
             {
                 ApplicationUser user = null;
 
-                user = new ApplicationUser { UserName = model.Email, Email = model.Email, CreatedOn = DateTime.Now };
+                user = new ApplicationUser { UserName = model.Username, Email = model.Email, CreatedOn = DateTime.Now };
 
                 var result = await UserManager.CreateAsync(user, model.Password);
 
