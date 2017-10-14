@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201710140002414_attributesFix.cs" />
+    <Compile Include="Migrations\201710140002414_attributesFix.Designer.cs">
+      <DependentUpon>201710140002414_attributesFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\Contracts\IAdvertisementsRepository.cs" />
     <Compile Include="Contracts\IEfRepository.cs" />
@@ -93,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710121008077_AdvertisementModels.resx">
       <DependentUpon>201710121008077_AdvertisementModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710140002414_attributesFix.resx">
+      <DependentUpon>201710140002414_attributesFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,31 +1,52 @@
-﻿@model string
+﻿<div class="container" style="margin-top: 20px;">
+    <div class="row text-center">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h2>Your advertisements:</h2>
+                </div>
+                <div class="panel-body" style="padding: 0px;">
+                    @(Html.Kendo()
+                        .Grid<SecondHand.Web.Models.Advertisements.AdvertisementListItemViewModel>()
+                        .Name("grid")
+                        .Columns(cfg =>
+                        {
+                            cfg
+                                .Template(@<text>
+                                        @Html.ActionLink(@item.Title, "Details", "Advertisements", new { id = @item.Id.ToString() })
+                                    </text>)
+                                .ClientTemplate("<a href='/advertisements/#=Id#'>#=Title#</a>")
+                                .Title("Title");
 
-@(Html.Kendo()
-    .Grid<SecondHand.Web.Models.Advertisements.AdvertisementListItemViewModel>()
-    .Name("grid")
-    .Columns(cfg =>
-    {
-        cfg
-            .Template(@<text>
-            @Html.ActionLink(@item.Title, "Details", "Advertisements", new { id = @item.Id.ToString() })
-            </text>)
-            .ClientTemplate("<a href='/advertisements/#=Id#'>#=Title#</a>")
-            .Title("Title");
-        cfg.Bound(x => x.CreatedOn);
-        cfg.Bound(x => x.PrimaryImageUrl);
-        cfg.Bound(x => x.Price);
-        cfg.Bound(x => x.CurrencyType);
+                            cfg
+                                .Template(@<text>
+                                                @Html.ActionLink(@item.Title, "Edit", "Advertisements", new { id = @item.Id.ToString() })
+                                    </text>)
+                                .ClientTemplate("<a href='/advertisements/#=Id#/edit' class='btn btn-default'>Edit</a>")
+                                .Title("Actions");
 
-    })
-    .Pageable(cfg =>
-    {
-        cfg.PageSizes(new List<int> { 5, 10 });
-    })
-    .Sortable()
-    .DataSource(cfg =>
-    {
-        cfg
-            .Ajax()
-            .Read(read => read.Action("UserAdvertisements", "Advertisements", new { username = ViewData["username"].ToString() }));
-    })
-    .Deferred())
+                            cfg.Bound(x => x.CreatedOn);
+                            cfg.Bound(x => x.PrimaryImageUrl);
+                            cfg.Bound(x => x.Price);
+                            cfg.Bound(x => x.CurrencyType);
+                        })
+                        .Pageable(cfg =>
+                        {
+                            cfg.PageSizes(new List<int> { 5, 10 });
+                        })
+                        .Sortable()
+                        .DataSource(cfg =>
+                        {
+                            cfg
+                                .Ajax()
+                                .Read(read => read.Action("UserAdvertisements", "Advertisements", new { username = ViewData["username"].ToString() }));
+                        })
+                        .Deferred())
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

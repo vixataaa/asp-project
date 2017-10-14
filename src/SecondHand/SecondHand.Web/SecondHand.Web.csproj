@@ -237,6 +237,7 @@
     <Compile Include="Models\Account\VerifyCodeViewModel.cs" />
     <Compile Include="Models\Advertisements\AdvertisementCreationViewModel.cs" />
     <Compile Include="Models\Advertisements\AdvertisementDetailsViewModel.cs" />
+    <Compile Include="Models\Advertisements\AdvertisementEditViewModel.cs" />
     <Compile Include="Models\Advertisements\AdvertisementIndexViewModel.cs" />
     <Compile Include="Models\Advertisements\AdvertisementListItemViewModel.cs" />
     <Compile Include="Models\Manage\AddPhoneNumberViewModel.cs" />
@@ -364,6 +365,7 @@
     <Content Include="Scripts\Kendo\jquery.min.map" />
     <Content Include="Views\Advertisements\MyAdvertisements.cshtml" />
     <Content Include="Views\Users\UserProfile.cshtml" />
+    <Content Include="Views\Advertisements\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

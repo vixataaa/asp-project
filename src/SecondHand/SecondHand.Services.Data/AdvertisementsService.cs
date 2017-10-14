@@ -8,6 +8,7 @@ using SecondHand.Data.Models;
 using SecondHand.Data.Repositories.Contracts;
 using SecondHand.Data.Contracts;
 using SecondHand.Services.Data.Common;
+using System.Reflection;
 
 namespace SecondHand.Services.Data
 {
@@ -53,6 +54,12 @@ namespace SecondHand.Services.Data
                 this.advertisements.Add(adv);
                 this.context.SaveChanges();
             }
+        }
+
+        public void Edit(Advertisement adv)
+        {
+            this.advertisements.Update(adv);
+            this.context.SaveChanges();
         }
 
         public IQueryable<Advertisement> GetAdvertisements()

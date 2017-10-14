@@ -9,7 +9,9 @@ using SecondHand.Web.Infrastructure;
 using SecondHand.Web.Models.Advertisements;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -109,7 +111,59 @@ namespace SecondHand.Web.Controllers
 
             return this.View();
         }
-        
+
+        [Authorize]
+        public ActionResult Edit(Guid id)
+        {
+            var adv = this.advertService.GetById(id);
+
+            if (adv == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            if (adv.AddedBy.UserName != User.Identity.Name)
+            {
+                return this.RedirectToAction("Details", new { id = id });
+            }
+
+            var viewModel = this.mapper.Map<AdvertisementEditViewModel>(adv);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(AdvertisementEditViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var adv = this.advertService.GetById(model.Id);
+
+            if (adv == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            if (User.Identity.Name != adv.AddedBy.UserName)
+            {
+                return this.RedirectToAction("Details", new { id = model.Id.ToString() });
+            }
+
+            adv.Title = model.Title;
+            adv.Description = model.Description;
+            adv.Price = model.Price;
+            adv.CurrencyType = model.CurrencyType;
+
+            this.advertService.Edit(adv);
+
+            return this.RedirectToAction("Details", new { id = model.Id.ToString() });
+        }
+
 
         public ActionResult UserAdvertisements([DataSourceRequest] DataSourceRequest request, string username)
         {

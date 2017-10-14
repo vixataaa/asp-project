@@ -23,8 +23,7 @@ namespace SecondHand.Data.Models
 
         [Required]
         public virtual ApplicationUser AddedBy { get; set; }
-
-        [Required]
+        
         public virtual Category Category { get; set; }
 
         [Required]

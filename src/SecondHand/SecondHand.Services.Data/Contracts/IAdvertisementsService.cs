@@ -3,6 +3,7 @@ using SecondHand.Services.Data.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,5 +25,7 @@ namespace SecondHand.Services.Data.Contracts
         IQueryable<Advertisement> GetUserAdvertisements(string username);
 
         Advertisement GetById(Guid id);
+
+        void Edit(Advertisement adv);
     }
 }
