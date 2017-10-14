@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Web", "SecondHan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Services.Data", "SecondHand.Services.Data\SecondHand.Services.Data.csproj", "{4C4FE549-F262-4D16-B80D-59CD83D1CD73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Tests", "SecondHand.Tests\SecondHand.Tests.csproj", "{D2F28606-2DB1-4497-9D85-EC2B460A6541}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{4C4FE549-F262-4D16-B80D-59CD83D1CD73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C4FE549-F262-4D16-B80D-59CD83D1CD73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C4FE549-F262-4D16-B80D-59CD83D1CD73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D2F28606-2DB1-4497-9D85-EC2B460A6541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D2F28606-2DB1-4497-9D85-EC2B460A6541}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D2F28606-2DB1-4497-9D85-EC2B460A6541}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D2F28606-2DB1-4497-9D85-EC2B460A6541}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
