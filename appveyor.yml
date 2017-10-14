@@ -18,11 +18,8 @@ build:
   verbosity: minimal
 test_script:
 - ps: >-
-    C:\projects\asp-project\src\SecondHand\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe "-targetargs:""C:\projects\asp-project\src\SecondHand.Tests\bin\Debug\SecondHand.Tests.dll"" /noshadow" -filter:"+[SecondHand*]*" -output:opencoverCoverage.xml
-    
-    $env:APPVEYOR_BUILD_NUMBER
-    
+    .\src\SecondHand\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe "-targetargs:"".\src\SecondHand\SecondHand.Tests\bin\Debug\SecondHand.Tests.dll"" /noshadow" -filter:"+[SecondHand*]*" -output:opencoverCoverage.xml
+        
     codecov -f "coverage.xml" -t d0a5a10f-2e94-4464-b8e0-af4d75d42847
     codecov -f "opencoverCoverage.xml" -t d0a5a10f-2e94-4464-b8e0-af4d75d42847
-    
-    C:\projects\asp-project\src
+    codecov --token d0a5a10f-2e94-4464-b8e0-af4d75d42847 --file "opencoverCoverage.xml"
