@@ -366,6 +366,7 @@
     <Content Include="Views\Advertisements\MyAdvertisements.cshtml" />
     <Content Include="Views\Users\UserProfile.cshtml" />
     <Content Include="Views\Advertisements\Edit.cshtml" />
+    <Content Include="Views\Advertisements\_RemoveConfirmationModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

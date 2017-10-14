@@ -27,5 +27,7 @@ namespace SecondHand.Services.Data.Contracts
         Advertisement GetById(Guid id);
 
         void Edit(Advertisement adv);
+
+        void Remove(Guid id);
     }
 }

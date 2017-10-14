@@ -36,7 +36,10 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-primary" value="Save" />
+            <a href="#" data-toggle="modal" data-target="#deleteConfirmModal" class="btn btn-danger">Delete</a>
             @Html.ActionLink("Cancel", "Details", "Advertisements", new { @class = "btn btn-primary" })
         </div>
     </div>
 }
+
+@Html.Partial("_RemoveConfirmationModal", Model.Id)

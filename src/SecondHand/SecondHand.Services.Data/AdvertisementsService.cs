@@ -62,6 +62,17 @@ namespace SecondHand.Services.Data
             this.context.SaveChanges();
         }
 
+        public void Remove(Guid id)
+        {
+            var adv = this.advertisements.GetById(id);
+
+            if (adv != null)
+            {
+                this.advertisements.Delete(adv);
+                this.context.SaveChanges();
+            }
+        }
+
         public IQueryable<Advertisement> GetAdvertisements()
         {
             return this.advertisements.All;

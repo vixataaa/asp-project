@@ -16,6 +16,12 @@ namespace SecondHand.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "User profile",
+                url: "users/{username}",
+                defaults: new { controller = "Users", action = "UserProfile" }
+            );
+
+            routes.MapRoute(
                 name: "Edit ad",
                 url: "advertisements/{id}/edit",
                 defaults: new { controller = "Advertisements", action = "Edit" },
@@ -29,11 +35,6 @@ namespace SecondHand.Web
                 constraints: new { id = @"^[{(]?[0-9A-F]{8}[-]?([0-9A-F]{4}[-]?){3}[0-9A-F]{12}[)}]?$" }
             );
 
-            routes.MapRoute(
-                name: "User profile",
-                url: "users/{username}",
-                defaults: new { controller = "Users", action = "UserProfile" }
-            );
 
             routes.MapRoute(
                 name: "Default",

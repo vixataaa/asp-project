@@ -113,6 +113,27 @@ namespace SecondHand.Web.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public ActionResult Delete(Guid id)
+        {
+            var adv = this.advertService.GetById(id);
+
+            if (adv == null)
+            {
+                return this.RedirectToAction("Index");
+            }
+
+            if (adv.AddedBy.UserName != User.Identity.Name)
+            {
+                return this.RedirectToAction("Details", new { id = id });
+            }
+
+            this.advertService.Remove(id);
+
+            return this.RedirectToAction("MyAdvertisements");
+        }
+
+        [Authorize]
         public ActionResult Edit(Guid id)
         {
             var adv = this.advertService.GetById(id);
