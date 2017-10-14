@@ -4,6 +4,7 @@ using SecondHand.Data.Models;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Data.Repositories.Contracts;
 using System;
+using Bytes2you.Validation;
 
 namespace SecondHand.Services.Data
 {
@@ -14,6 +15,9 @@ namespace SecondHand.Services.Data
 
         public UsersService(IUsersRepository users, ISaveContext context)
         {
+            Guard.WhenArgument(users, "users").IsNull().Throw();
+            Guard.WhenArgument(context, "context").IsNull().Throw();
+
             this.users = users;
             this.context = context;
         }

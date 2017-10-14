@@ -9,6 +9,7 @@ using SecondHand.Data.Repositories.Contracts;
 using SecondHand.Data.Contracts;
 using SecondHand.Services.Data.Common;
 using System.Reflection;
+using Bytes2you.Validation;
 
 namespace SecondHand.Services.Data
 {
@@ -23,6 +24,11 @@ namespace SecondHand.Services.Data
         public AdvertisementsService(IAdvertisementsRepository advertisements, ICategoryRepository categories, IUsersRepository users,
             ISaveContext context)
         {
+            Guard.WhenArgument(advertisements, "advertisements").IsNull().Throw();
+            Guard.WhenArgument(categories, "categories").IsNull().Throw();
+            Guard.WhenArgument(users, "users").IsNull().Throw();
+            Guard.WhenArgument(context, "context").IsNull().Throw();
+
             this.advertisements = advertisements;
             this.categories = categories;
             this.users = users;

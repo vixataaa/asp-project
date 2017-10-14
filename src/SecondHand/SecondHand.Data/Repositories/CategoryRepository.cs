@@ -11,7 +11,8 @@ namespace SecondHand.Data.Repositories
 {
     public class CategoryRepository : EfRepository<Category>, ICategoryRepository
     {
-        public CategoryRepository(MsSqlDbContext context) : base(context)
+        public CategoryRepository(MsSqlDbContext context) 
+            : base(context)
         {
         }
 

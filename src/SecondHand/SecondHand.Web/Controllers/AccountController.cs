@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity.EntityFramework;
 using SecondHand.Data.Models;
 using SecondHand.Web.Models.Account;
+using Bytes2you.Validation;
 
 namespace SecondHand.Web.Controllers
 {
@@ -20,12 +21,11 @@ namespace SecondHand.Web.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
-        {
-        }
-
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
+            Guard.WhenArgument(userManager, "userManager").IsNull().Throw();
+            Guard.WhenArgument(signInManager, "signInManager").IsNull().Throw();
+
             UserManager = userManager;
             SignInManager = signInManager;
         }

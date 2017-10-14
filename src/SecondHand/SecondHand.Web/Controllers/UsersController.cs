@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Bytes2you.Validation;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Web.Models.Users;
 using System;
@@ -17,6 +18,11 @@ namespace SecondHand.Web.Controllers
 
         public UsersController(IUsersService userService, IAdvertisementsService advertService, IMapper mapper)
         {
+            Guard.WhenArgument(userService, "userService").IsNull().Throw();
+            Guard.WhenArgument(advertService, "advertService").IsNull().Throw();
+            Guard.WhenArgument(mapper, "mapper").IsNull().Throw();
+
+
             this.userService = userService;
             this.advertService = advertService;
             this.mapper = mapper;

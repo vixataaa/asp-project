@@ -11,6 +11,7 @@ using SecondHand.Data;
 using SecondHand.Data.Models;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Web.Models.Manage;
+using Bytes2you.Validation;
 
 namespace SecondHand.Web.Controllers
 {
@@ -23,6 +24,10 @@ namespace SecondHand.Web.Controllers
 
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUsersService userService)
         {
+            Guard.WhenArgument(userManager, "userManager").IsNull().Throw();
+            Guard.WhenArgument(signInManager, "signInManager").IsNull().Throw();
+            Guard.WhenArgument(userService, "userService").IsNull().Throw();
+
             this.UserManager = userManager;
             this.SignInManager = signInManager;
             this.userService = userService;

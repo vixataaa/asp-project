@@ -4,6 +4,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using SecondHand.Data.Contracts;
 using SecondHand.Data.Models.Contracts;
+using Bytes2you.Validation;
 
 namespace SecondHand.Data.Repositories.Base
 {
@@ -14,6 +15,8 @@ namespace SecondHand.Data.Repositories.Base
 
         public EfRepository(MsSqlDbContext context)
         {
+            Guard.WhenArgument(context, "context").IsNull().Throw();
+
             this.context = context;
         }
 

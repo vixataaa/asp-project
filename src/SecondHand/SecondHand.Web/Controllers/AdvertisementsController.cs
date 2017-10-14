@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Bytes2you.Validation;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using SecondHand.Data.Models;
@@ -26,9 +27,15 @@ namespace SecondHand.Web.Controllers
         private readonly ICategoryService categoryService;
         private readonly IMapper mapper;
 
-        public AdvertisementsController(IUsersService userService, IAdvertisementsService advertService
-            , ICategoryService categoryService, IMapper mapper)
+        public AdvertisementsController(IUsersService userService, IAdvertisementsService advertService, 
+            ICategoryService categoryService, IMapper mapper)
         {
+            Guard.WhenArgument(userService, "userService").IsNull().Throw();
+            Guard.WhenArgument(advertService, "advertService").IsNull().Throw();
+            Guard.WhenArgument(categoryService, "categoryService").IsNull().Throw();
+            Guard.WhenArgument(mapper, "mapper").IsNull().Throw();
+
+
             this.userService = userService;
             this.advertService = advertService;
             this.categoryService = categoryService;

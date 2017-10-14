@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SecondHand.Data.Models;
 using SecondHand.Data.Repositories.Contracts;
 using SecondHand.Data.Contracts;
+using Bytes2you.Validation;
 
 namespace SecondHand.Services.Data
 {
@@ -17,6 +18,9 @@ namespace SecondHand.Services.Data
 
         public CategoryService(ICategoryRepository categories, ISaveContext context)
         {
+            Guard.WhenArgument(categories, "categories").IsNull().Throw();
+            Guard.WhenArgument(context, "context").IsNull().Throw();
+
             this.categories = categories;
             this.context = context;
         }

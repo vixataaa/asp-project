@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SecondHand.Data.Contracts;
+using Bytes2you.Validation;
 
 namespace SecondHand.Data
 {
@@ -13,6 +14,8 @@ namespace SecondHand.Data
 
         public SaveContext(MsSqlDbContext context)
         {
+            Guard.WhenArgument(context, "context").IsNull().Throw();
+
             this.context = context;
         }
 
