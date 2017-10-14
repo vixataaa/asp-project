@@ -11,6 +11,8 @@ namespace SecondHand.Web.Models.Advertisements
 {
     public class AdvertisementDetailsViewModel : IMapFrom<Advertisement>, IHaveCustomMappings
     { 
+        public Guid Id { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }

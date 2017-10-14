@@ -11,6 +11,12 @@ namespace SecondHand.Web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/Kendo/jquery.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/signalr").Include(
+                        "~/Scripts/jquery.signalR-2.2.2.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery-unobtrusive").Include(
+                        "~/Scripts/jquery.unobtrusive-ajax.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 

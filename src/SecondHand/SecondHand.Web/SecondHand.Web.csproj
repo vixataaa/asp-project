@@ -56,6 +56,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\Kendo.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -216,6 +222,11 @@
     <Compile Include="App_Start\NinjectConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Chats\ChatsAreaRegistration.cs" />
+    <Compile Include="Areas\Chats\Controllers\ChatsController.cs" />
+    <Compile Include="Areas\Chats\Models\Chats\ChatRoomViewModel.cs" />
+    <Compile Include="Areas\Chats\Models\Chats\CreateMessageViewModel.cs" />
+    <Compile Include="Areas\Chats\Models\Chats\MessageListItemViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdvertisementsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -224,11 +235,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\CollectionExtensions.cs" />
-    <Compile Include="Infrastructure\IHaveCustomMappings.cs" />
-    <Compile Include="Infrastructure\IMapFrom.cs" />
-    <Compile Include="Infrastructure\MapperUtils.cs" />
-    <Compile Include="Infrastructure\QueryableExtensions.cs" />
+    <Compile Include="Infrastructure\Extensions\CollectionExtensions.cs" />
+    <Compile Include="Infrastructure\Mapper\IHaveCustomMappings.cs" />
+    <Compile Include="Infrastructure\Mapper\IMapFrom.cs" />
+    <Compile Include="Infrastructure\Mapper\MapperUtils.cs" />
+    <Compile Include="Infrastructure\Extensions\QueryableExtensions.cs" />
     <Compile Include="Models\Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Models\Account\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\Account\ForgotPasswordViewModel.cs" />
@@ -317,6 +328,11 @@
     <Content Include="Content\Kendo\fonts\glyphs\WebComponentsIcons.eot" />
     <Content Include="Content\Kendo\fonts\glyphs\WebComponentsIcons.ttf" />
     <Content Include="Content\Kendo\fonts\glyphs\WebComponentsIcons.woff" />
+    <Content Include="Areas\Chats\Views\web.config" />
+    <Content Include="Areas\Chats\Views\Chats\ChatRoom.cshtml" />
+    <Content Include="Areas\Chats\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Chats\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Chats\Views\Chats\_ChatMessage.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Libraries\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo.Mvc.xml" />
@@ -327,6 +343,10 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.js" />
+    <Content Include="Scripts\jquery.signalR-2.2.2.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -373,6 +393,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Infrastructure\ActionFilters\" />
     <Folder Include="Models\Identity\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
@@ -394,6 +415,10 @@
     <ProjectReference Include="..\SecondHand.Services.Data\SecondHand.Services.Data.csproj">
       <Project>{4C4FE549-F262-4D16-B80D-59CD83D1CD73}</Project>
       <Name>SecondHand.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SecondHand.Services.Notifications\SecondHand.Services.Notifications.csproj">
+      <Project>{2cc78d8a-af00-4aa8-8218-4bdbb29a3e94}</Project>
+      <Name>SecondHand.Services.Notifications</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

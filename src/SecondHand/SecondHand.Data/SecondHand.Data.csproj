@@ -60,11 +60,17 @@
     <Compile Include="Migrations\201710140002414_attributesFix.Designer.cs">
       <DependentUpon>201710140002414_attributesFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710141358539_ChatModels.cs" />
+    <Compile Include="Migrations\201710141358539_ChatModels.Designer.cs">
+      <DependentUpon>201710141358539_ChatModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\ChatsRepository.cs" />
     <Compile Include="Repositories\Contracts\IAdvertisementsRepository.cs" />
     <Compile Include="Contracts\IEfRepository.cs" />
     <Compile Include="Contracts\ISaveContext.cs" />
     <Compile Include="Repositories\Contracts\ICategoryRepository.cs" />
+    <Compile Include="Repositories\Contracts\IChatsRepository.cs" />
     <Compile Include="Repositories\Contracts\IPhotosRepository.cs" />
     <Compile Include="Repositories\Contracts\IUsersRepository.cs" />
     <Compile Include="Migrations\201710112345582_Initial.cs" />
@@ -103,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710140002414_attributesFix.resx">
       <DependentUpon>201710140002414_attributesFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710141358539_ChatModels.resx">
+      <DependentUpon>201710141358539_ChatModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

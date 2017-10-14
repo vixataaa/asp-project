@@ -60,9 +60,11 @@
     <Compile Include="Advertisement.cs" />
     <Compile Include="ApplicationUser.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="Chat.cs" />
     <Compile Include="Contracts\IAuditable.cs" />
     <Compile Include="Contracts\IDeletable.cs" />
     <Compile Include="CurrencyType.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="Photo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

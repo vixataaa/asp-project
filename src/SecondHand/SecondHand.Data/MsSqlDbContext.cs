@@ -23,6 +23,10 @@ namespace SecondHand.Data
 
         public IDbSet<Photo> Photos { get; set; }
 
+        public IDbSet<Chat> Chats { get; set; }
+
+        public IDbSet<Message> Messages { get; set; }
+
         public static MsSqlDbContext Create()
         {
             return new MsSqlDbContext();
