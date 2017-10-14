@@ -17,7 +17,7 @@ build:
   verbosity: minimal
 test_script:
 - ps: >-
-    C:\projects\asp-project\src\SecondHand\packages\OpenCover.4.6.519\tools -register:user -target:nunit-console.exe "-targetargs:""C:\projects\asp-project\src\SecondHand.Tests\bin\$env:CONFIGURATION\SecondHand.Tests.dll"" /noshadow" -filter:"+[SecondHand*]*" -output:opencoverCoverage.xml
+    C:\projects\asp-project\src\SecondHand\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe "-targetargs:""C:\projects\asp-project\src\SecondHand.Tests\bin\$env:CONFIGURATION\SecondHand.Tests.dll"" /noshadow" -filter:"+[SecondHand*]*" -output:opencoverCoverage.xml
     $coveralls = (Resolve-Path "C:/projects/asp-project/src/SecondHand/packages/coveralls.net.*/tools/csmacnz.Coveralls.exe").ToString()
     
     $env:APPVEYOR_BUILD_NUMBER
