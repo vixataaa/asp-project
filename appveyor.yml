@@ -1,10 +1,27 @@
 version: 1.0.{build}
-nuget:
-  project_feed: true
+skip_tags: true
+configuration: Release
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: T4HU+3zXxONb3hR4a+rJbE0MctjwMjlbHrYVBaU4BRXp9OAWygYlNUnDZZkG7vHk
 before_build:
-- cmd: nuget restore ./src/SecondHand/SecondHand.sln
+  - nuget restore ".\src\SecondHand\SecondHand.sln"
 build:
-  project: ./src/SecondHand/SecondHand.sln
-  publish_nuget: true
-  include_nuget_references: true
+  project: .\src\SecondHand\SecondHand.sln
   verbosity: minimal
+test_script:
+- ps: >-
+    .\src\SecondHand\packages\OpenCover.4.6.519\tools -register:user -target:nunit-console.exe "-targetargs:""src\SecondHand.Tests\bin\$env:CONFIGURATION\SecondHand.Tests.dll"" /noshadow" -filter:"+[SecondHand*]*" -output:opencoverCoverage.xml
+    $coveralls = (Resolve-Path "src/SecondHand/packages/coveralls.net.*/tools/csmacnz.Coveralls.exe").ToString()
+    
+    $env:APPVEYOR_BUILD_NUMBER
+    
+    codecov -f "coverage.xml" -t d0a5a10f-2e94-4464-b8e0-af4d75d42847
+    codecov -f "opencoverCoverage.xml" -t d0a5a10f-2e94-4464-b8e0-af4d75d42847
+    & $coveralls --opencover -i opencoverCoverage.xml --repoToken d0a5a10f-2e94-4464-b8e0-af4d75d42847 --useRelativePaths --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_BUILD_NUMBER --serviceName appveyor
