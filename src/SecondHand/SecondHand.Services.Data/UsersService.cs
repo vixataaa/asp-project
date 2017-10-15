@@ -5,21 +5,24 @@ using SecondHand.Services.Data.Contracts;
 using SecondHand.Data.Repositories.Contracts;
 using System;
 using Bytes2you.Validation;
+using Microsoft.AspNet.Identity;
 
 namespace SecondHand.Services.Data
 {
     public class UsersService : IUsersService
     {
-        private readonly IUsersRepository users;
-        private readonly ISaveContext context;
+        protected readonly IUsersRepository users;
 
-        public UsersService(IUsersRepository users, ISaveContext context)
+        public UsersService(IUsersRepository users)
         {
             Guard.WhenArgument(users, "users").IsNull().Throw();
-            Guard.WhenArgument(context, "context").IsNull().Throw();
 
             this.users = users;
-            this.context = context;
+        }
+
+        public IQueryable<ApplicationUser> AllAndDeleted()
+        {
+            return this.users.AllAndDeleted;
         }
 
         public ApplicationUser GetById(string id)

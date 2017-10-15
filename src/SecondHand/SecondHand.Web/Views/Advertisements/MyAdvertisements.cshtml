@@ -13,14 +13,14 @@
                         {
                             cfg
                                 .Template(@<text>
-                                        @Html.ActionLink(@item.Title, "Details", "Advertisements", new { id = @item.Id.ToString() })
+                                        @Html.ActionLink(@item.Title, "Details", "Advertisements", new { id = @item.Id.ToString(), area = "" })
                                     </text>)
                                 .ClientTemplate("<a href='/advertisements/#=Id#'>#=Title#</a>")
                                 .Title("Title");
 
                             cfg
                                 .Template(@<text>
-                                                @Html.ActionLink(@item.Title, "Edit", "Advertisements", new { id = @item.Id.ToString() })
+                                                @Html.ActionLink(@item.Title, "Edit", "Advertisements", new { id = @item.Id.ToString(), area = "" })
                                     </text>)
                                 .ClientTemplate("<a href='/advertisements/#=Id#/edit' class='btn btn-default'>Edit</a>")
                                 .Title("Actions");

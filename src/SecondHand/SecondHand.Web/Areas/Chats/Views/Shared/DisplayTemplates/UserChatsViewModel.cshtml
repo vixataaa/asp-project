@@ -1,0 +1,8 @@
+﻿@model SecondHand.Web.Areas.Chats.Models.Chats.UserChatsViewModel
+
+@foreach (var chat in Model.Chats)
+{
+    <div>Regarding: @chat.AdvertisementTitle -- @(chat.IsRead ? "Nothing new" : "New messages!")</div>
+    @Html.ActionLink(linkText: "Open", actionName: "ChatRoom", controllerName: "Chats", routeValues: new { advertisementId = chat.AdvertisementId, username = chat.AdvertisementAddedByUserName }, htmlAttributes: new { })
+    <hr />
+}

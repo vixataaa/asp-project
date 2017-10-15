@@ -13,7 +13,7 @@ namespace SecondHand.Services.Data.Contracts
 
         Chat GetChatById(Guid id);
 
-        void CreateChat(Guid advertisementId, params string[] participantNames);
+        Chat CreateChat(Guid advertisementId, params string[] participantNames);
 
         Message CreateMessage(Chat chat, ApplicationUser author, string text);
 

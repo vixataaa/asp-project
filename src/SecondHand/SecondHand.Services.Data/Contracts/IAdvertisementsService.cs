@@ -17,6 +17,8 @@ namespace SecondHand.Services.Data.Contracts
 
         IQueryable<Advertisement> GetAdvertisements();
 
+        IQueryable<Advertisement> AllAndDeleted();
+
         IQueryable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "");
 
         IQueryable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "",
@@ -29,5 +31,7 @@ namespace SecondHand.Services.Data.Contracts
         void Edit(Advertisement adv);
 
         void Remove(Guid id);
+
+        void Remove(Advertisement adv);
     }
 }

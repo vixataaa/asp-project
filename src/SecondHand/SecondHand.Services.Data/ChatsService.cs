@@ -13,39 +13,36 @@ namespace SecondHand.Services.Data
 {
     public class ChatsService : IChatsService
     {
-        private readonly ISaveContext context;
         private readonly IChatsRepository chats;
         private readonly IAdvertisementsRepository advertisements;
         private readonly IUsersRepository users;
 
         public ChatsService(IChatsRepository chats, IAdvertisementsRepository advertisements, 
-            IUsersRepository users, ISaveContext context)
+            IUsersRepository users)
         {
             Guard.WhenArgument(chats, "chats").IsNull().Throw();
             Guard.WhenArgument(advertisements, "advertisements").IsNull().Throw();
             Guard.WhenArgument(users, "users").IsNull().Throw();
-            Guard.WhenArgument(context, "context").IsNull().Throw();
 
             this.chats = chats;
             this.advertisements = advertisements;
             this.users = users;
-            this.context = context;
         }
 
-        public void CreateChat(Guid advertisementId, params string[] participantNames)
+        public Chat CreateChat(Guid advertisementId, params string[] participantNames)
         {
             var foundChat = this.chats.FindChat(advertisementId, participantNames);
 
             if (foundChat != null)
             {
-                return;
+                return null;
             }
 
             var advertisement = this.advertisements.GetById(advertisementId);
 
             if (advertisement == null)
             {
-                return;
+                return null;
             }
 
             var participants = new List<ApplicationUser>();
@@ -56,7 +53,7 @@ namespace SecondHand.Services.Data
 
                 if (foundUser == null)
                 {
-                    return;
+                    return null;
                 }
 
                 participants.Add(foundUser);
@@ -69,16 +66,16 @@ namespace SecondHand.Services.Data
             };
 
             this.chats.Add(chat);
+            return chat;
         }
 
         public Chat GetChat(Guid advertisementId, params string[] participantNames)
         {
             var chat = this.chats.FindChat(advertisementId, participantNames);
-
-            // Questionable
+            
             if (chat == null)
             {
-                this.CreateChat(advertisementId, participantNames);
+                return this.CreateChat(advertisementId, participantNames);
             }
 
             return this.chats.FindChat(advertisementId, participantNames);

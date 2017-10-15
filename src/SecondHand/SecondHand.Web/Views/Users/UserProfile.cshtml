@@ -34,7 +34,7 @@
                         {
                             cfg
                                 .Template(@<text>
-                                @Html.ActionLink(@item.Title, "Details", "Advertisements", new { id = @item.Id.ToString() })
+                                @Html.ActionLink(@item.Title, "Details", "Advertisements", new { id = @item.Id.ToString() }, new { area = ""})
                                 </text>)
                                 .ClientTemplate("<a href='/advertisements/#=Id#'>#=Title#</a>")
                                 .Title("Title");
@@ -53,7 +53,7 @@
                         {
                             cfg
                                 .Ajax()
-                                .Read(read => read.Action("UserAdvertisements", "Advertisements", new { username = Model.Username }));
+                                .Read(read => read.Action("UserAdvertisements", "Advertisements", new { username = Model.Username, area = "" }));
                         })
                         .Deferred())
                 </div>

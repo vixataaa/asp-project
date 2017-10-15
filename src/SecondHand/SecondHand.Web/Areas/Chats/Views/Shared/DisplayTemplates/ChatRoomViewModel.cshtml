@@ -1,0 +1,25 @@
+﻿@model SecondHand.Web.Areas.Chats.Models.Chats.ChatRoomViewModel
+
+<ul id="messages">
+    @if (Model.Messages != null)
+    {
+            foreach (var message in Model.Messages)
+            {
+                @Html.Partial("_ChatMessage", message)
+            }
+    }
+</ul>
+
+@using (Ajax.BeginForm(
+                actionName: "AddMessage",
+                controllerName: "Chats",
+                routeValues: new { area = "Chats" },
+                ajaxOptions: new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.InsertAfter, UpdateTargetId = "messages" }
+                ))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("chatId", Model.Id, new { id = "chat-id" })
+    @Html.TextBox("text")
+
+    <input type="submit" value="Send" />
+}

@@ -231,6 +231,13 @@
     <Compile Include="App_Start\NinjectConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AdvertisementsPanelController.cs" />
+    <Compile Include="Areas\Administration\Controllers\Base\AdminController.cs" />
+    <Compile Include="Areas\Administration\Controllers\PanelController.cs" />
+    <Compile Include="Areas\Administration\Controllers\UsersPanelController.cs" />
+    <Compile Include="Areas\Administration\Models\AdvertisementsPanel\AdvertisementGridViewModel.cs" />
+    <Compile Include="Areas\Administration\Models\UsersPanel\UserGridViewModel.cs" />
     <Compile Include="Areas\Chats\ChatsAreaRegistration.cs" />
     <Compile Include="Areas\Chats\Controllers\ChatsController.cs" />
     <Compile Include="Areas\Chats\Models\Chats\ChatListItemViewModel.cs" />
@@ -347,12 +354,20 @@
     <Content Include="Areas\Chats\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Chats\Views\Chats\_ChatMessage.cshtml" />
     <Content Include="Areas\Chats\Views\Chats\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administration\Views\Panel\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\AdvertisementsPanel\Index.cshtml" />
+    <Content Include="Areas\Chats\Views\Shared\DisplayTemplates\ChatRoomViewModel.cshtml" />
+    <Content Include="Areas\Chats\Views\Shared\DisplayTemplates\UserChatsViewModel.cshtml" />
+    <Content Include="Areas\Administration\Views\UsersPanel\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Libraries\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo.Mvc.xml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Custom\addAdvertisement.js" />
+    <Content Include="Scripts\Custom\notificationManagerHome.js" />
     <Content Include="Scripts\Custom\sidenav.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -404,11 +419,14 @@
     <Content Include="Views\Users\UserProfile.cshtml" />
     <Content Include="Views\Advertisements\Edit.cshtml" />
     <Content Include="Views\Advertisements\_RemoveConfirmationModal.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AdvertisementCreationViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AdvertisementEditViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AdvertisementDetailsViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Administration\Views\Shared\" />
     <Folder Include="Models\Identity\" />
-    <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -432,6 +450,10 @@
     <ProjectReference Include="..\SecondHand.Services.Notifications\SecondHand.Services.Notifications.csproj">
       <Project>{2cc78d8a-af00-4aa8-8218-4bdbb29a3e94}</Project>
       <Name>SecondHand.Services.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SecondHand.Web.Common\SecondHand.Web.Common.csproj">
+      <Project>{a8eef42e-3d5e-4bbd-b937-b5514c257a34}</Project>
+      <Name>SecondHand.Web.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

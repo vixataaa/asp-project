@@ -1,0 +1,42 @@
+﻿@(Html.Kendo()
+        .Grid<SecondHand.Web.Areas.Administration.Models.AdvertisementsPanel.AdvertisementGridViewModel>()
+        .Name("AdsGrid")
+        .Columns((cfg) =>
+        {
+            cfg
+                .Template(@<text>
+                    @Html.ActionLink(@item.Title, "Details", "Advertisements", new { id = @item.Id.ToString(), area = "" })
+                    </text>)
+                .ClientTemplate("<a href='/advertisements/#=Id#'>#=Title#</a>")
+                .Title("Title");
+
+            cfg.Bound(c => c.Description);
+            cfg.Bound(c => c.CreatedOn);
+            cfg.Bound(c => c.Price);
+            cfg.Bound(c => c.IsDeleted);
+
+            cfg.Command(cmd =>
+            {
+                cmd.Edit();
+                cmd.Destroy();
+            });
+        })
+        .Editable(cfg => cfg.Mode(GridEditMode.PopUp))
+        .Pageable(cfg =>
+        {
+            cfg
+            .Refresh(true)
+            .PageSizes(true);
+        })
+        .Sortable()
+        .DataSource(src =>
+        {
+            src.Ajax()
+                .Model(m => m.Id(adv => adv.Id))
+                .Read(r => r.Action("GetAdvertisements", "AdvertisementsPanel", new { area = "Administration" }))
+                .Update(r => r.Action("EditAdvertisement", "AdvertisementsPanel", new { area = "Administration" }))
+                .Destroy(r => r.Action("RemoveAdvertisement", "AdvertisementsPanel", new { area = "Administration" }));
+        })
+        .Filterable()
+        .Deferred()
+)

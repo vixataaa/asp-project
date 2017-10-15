@@ -27,6 +27,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Infrastructure;
 using Ninject.Extensions.Interception.Infrastructure.Language;
 using SecondHand.Services.Notifications;
+using SecondHand.Services.Data;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectConfig), "Stop")]

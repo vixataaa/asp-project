@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using System.Web.Mvc;
+using SecondHand.Web.Common.Constants;
 
 namespace SecondHand.Web.Models.Advertisements
 {
@@ -24,16 +25,17 @@ namespace SecondHand.Web.Models.Advertisements
 
         [Required]
         [Display(Name = "Title")]
-        [StringLength(80, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(Constraints.MAX_TITLE_LEN, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = Constraints.MIN_TITLE_LEN)]
         public string Title { get; set; }
 
         [Required]
         [Display(Name = "Description")]
-        [StringLength(1000, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 10)]
+        [StringLength(Constraints.MAX_DESCRIPTION_LEN, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = Constraints.MIN_DESCRIPTION_LEN)]
         public string Description { get; set; }
 
         [Required]
         [Display(Name = "Price")]
+        [Range(0, int.MaxValue)]
         public decimal Price { get; set; }
 
         [DataType(DataType.ImageUrl)]

@@ -2,7 +2,12 @@
 
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm(
+        actionName: "LogOff", 
+        controllerName: "Account", 
+        method: FormMethod.Post, 
+        htmlAttributes: new { id = "logoutForm", @class = "navbar-right" },
+        routeValues: new { area = "" }))
     {
     @Html.AntiForgeryToken()
 
@@ -13,18 +18,31 @@
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
+                @if (User.IsInRole("Admin"))
+                {
+                    <li>
+                        <a href='/administration'>
+                            <span class="glyphicon glyphicon-cog"></span> Administration
+                        </a>
+                    </li>
+                }                
                 <li>
-                    <a href=@Url.Action("Index", "Manage")>
+                    <a href='/users/@User.Identity.Name'>
+                        <span class="glyphicon glyphicon-user"></span> My profile
+                    </a>
+                </li>
+                <li>
+                    <a href=@Url.Action("Index", "Manage", new { area = "" })>
                         <span class="glyphicon glyphicon-edit"></span> Manage account
                     </a>
                 </li>
                 <li>
-                    <a href=@Url.Action("MyAdvertisements", "Advertisements")>
+                    <a href=@Url.Action("MyAdvertisements", "Advertisements", new { area = "" })>
                         <span class="glyphicon glyphicon-list"></span> Manage advertisements
                     </a>
                 </li>
                 <li>
-                    <a href=@Url.Action("AddAdvertisement", "Advertisements")>
+                    <a href=@Url.Action("AddAdvertisement", "Advertisements", new { area = "" })>
                         <span class="glyphicon glyphicon-plus"></span> Add advertisement
                     </a>
                 </li>
@@ -41,7 +59,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: new { area = "" }, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

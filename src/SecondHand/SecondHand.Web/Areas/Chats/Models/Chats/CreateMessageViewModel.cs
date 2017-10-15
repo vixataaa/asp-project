@@ -11,6 +11,7 @@ namespace SecondHand.Web.Areas.Chats.Models.Chats
         [Required]
         public Guid ChatId { get; set; }
 
+        [Required]
         public string Text { get; set; }
     }
 }

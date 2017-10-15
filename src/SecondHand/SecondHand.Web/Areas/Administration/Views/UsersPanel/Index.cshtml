@@ -1,0 +1,40 @@
+﻿@(Html.Kendo()
+        .Grid<SecondHand.Web.Areas.Administration.Models.UsersPanel.UserGridViewModel>()
+        .Name("Users")
+        .Columns((cfg) =>
+        {
+            cfg
+                .Template(@<text>
+                <a href='/users/@item.UserName'>@item.UserName</a>
+                </text>)
+                .ClientTemplate("<a href='/users/#=UserName#'>#=UserName#</a>")
+                .Title("Username");
+            cfg.Bound(c => c.FirstName);
+            cfg.Bound(c => c.LastName);
+            cfg.Bound(c => c.CreatedOn);
+            cfg.Bound(c => c.IsDeleted);
+            cfg.Command(cmd =>
+            {
+                cmd.Edit();
+                cmd.Destroy();
+            });
+        })
+        .Editable(cfg => cfg.Mode(GridEditMode.PopUp))
+        .Pageable(cfg =>
+        {
+            cfg
+            .Refresh(true)
+            .PageSizes(true);
+        })
+        .Sortable()
+        .DataSource(src =>
+        {
+            src.Ajax()
+                .Model(m => m.Id(usr => usr.Id))
+                .Read(r => r.Action("GetUsers", "UsersPanel", new { area = "Administration" }))
+                .Update(r => r.Action("EditUser", "UsersPanel", new { area = "Administration" }))
+                .Destroy(r => r.Action("DeleteUser", "UsersPanel", new { area = "Administration" }));
+        })
+        .Filterable()
+        .Deferred()
+)

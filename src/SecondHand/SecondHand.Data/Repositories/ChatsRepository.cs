@@ -1,4 +1,5 @@
-﻿using SecondHand.Data.Models;
+﻿using Bytes2you.Validation;
+using SecondHand.Data.Models;
 using SecondHand.Data.Repositories.Base;
 using SecondHand.Data.Repositories.Contracts;
 using System;

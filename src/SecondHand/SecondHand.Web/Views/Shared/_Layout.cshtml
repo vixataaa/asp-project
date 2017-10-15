@@ -51,51 +51,12 @@
 
     @Html.Kendo().DeferredScripts()    
 
+
     @if (User.Identity.IsAuthenticated)
     {
         @Scripts.Render("~/bundles/signalr")
         <script src="~/signalr/hubs"></script>
-        <script>
-            $(() => {
-                const hub = $.connection.notificationHub;
-
-                const getNotificationCount = () => {
-                    return new Promise((resolve, reject) => {
-                        $.ajax({
-                            method: 'POST',
-                            url: '/chats/chats/getnotificationscount',
-                            dataType: 'json',
-                            success: resolve,
-                            error: reject
-                        });
-                    });
-                };
-
-                hub.client.updateNotifications = (str) => {
-                    $('#notif-badge').html(str);
-                };
-
-                hub.client.requestNotifications = () => {
-                    getNotificationCount()
-                        .then((data) => {
-                            if (data !== 0) {
-                                $('#notif-badge').html(data);
-                            }
-                        });
-                };
-
-                $.connection.hub.start().done(() => {
-                    $('#my-btn').on('click', () => {
-                        hub.server.hello('Omg wtf');
-                    });
-                });
-            });
-
-            function htmlEncode(value) {
-                var encodedValue = $('<div />').text(value).html();
-                return encodedValue;
-            }
-        </script>
+        @Scripts.Render("~/custom/notificationManagerHome");
     }
 
     @RenderSection("scripts", required: false)

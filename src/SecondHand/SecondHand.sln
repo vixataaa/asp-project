@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Services.Data", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Services.Notifications", "SecondHand.Services.Notifications\SecondHand.Services.Notifications.csproj", "{2CC78D8A-AF00-4AA8-8218-4BDBB29A3E94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecondHand.Web.Common", "SecondHand.Web.Common\SecondHand.Web.Common.csproj", "{A8EEF42E-3D5E-4BBD-B937-B5514C257A34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{2CC78D8A-AF00-4AA8-8218-4BDBB29A3E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CC78D8A-AF00-4AA8-8218-4BDBB29A3E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC78D8A-AF00-4AA8-8218-4BDBB29A3E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8EEF42E-3D5E-4BBD-B937-B5514C257A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8EEF42E-3D5E-4BBD-B937-B5514C257A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8EEF42E-3D5E-4BBD-B937-B5514C257A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8EEF42E-3D5E-4BBD-B937-B5514C257A34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

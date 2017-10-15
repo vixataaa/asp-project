@@ -12,7 +12,6 @@ namespace SecondHand.Web.Controllers
     {
         public ActionResult Index()
         {
-            HttpContext.User.IsInRole("Admin");
             return View();
         }
 

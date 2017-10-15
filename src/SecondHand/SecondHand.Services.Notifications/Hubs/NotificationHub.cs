@@ -14,11 +14,6 @@ namespace SecondHand.Services.Notifications.Hubs
         {
         }
 
-        public void Hello(string str)
-        {
-            Clients.All.updateNotifications(str);
-        }
-
         public override Task OnConnected()
         {
             Clients.Caller.requestNotifications();

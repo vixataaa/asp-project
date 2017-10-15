@@ -1,45 +1,5 @@
 ﻿@model SecondHand.Web.Models.Advertisements.AdvertisementEditViewModel
 
-@using (@Html.BeginForm("Edit", "Advertisements", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(x => x.Id)
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", style = "height: 400px;" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Price, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.CurrencyType, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.CurrencyType, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Save" />
-            <a href="#" data-toggle="modal" data-target="#deleteConfirmModal" class="btn btn-danger">Delete</a>
-            @Html.ActionLink("Cancel", "Details", "Advertisements", new { @class = "btn btn-primary" })
-        </div>
-    </div>
-}
+@Html.EditorForModel()
 
 @Html.Partial("_RemoveConfirmationModal", Model.Id)

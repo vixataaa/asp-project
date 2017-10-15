@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SecondHand.Web.Common.Constants;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace SecondHand.Web.Models.Account
     {
         [Required]
         [Display(Name = "Username")]
+        [StringLength(Constraints.MAX_NAME_LEN, MinimumLength = Constraints.MIN_NAME_LEN)]
         public string Username { get; set; }
 
         [Required]

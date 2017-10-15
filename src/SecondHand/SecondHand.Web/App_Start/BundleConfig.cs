@@ -39,6 +39,9 @@ namespace SecondHand.Web
             bundles.Add(new ScriptBundle("~/custom/sidenav").Include(
                 "~/Scripts/Custom/sidenav.js"));
 
+            bundles.Add(new ScriptBundle("~/custom/notificationManagerHome").Include(
+                "~/Scripts/Custom/notificationManagerHome.js"));
+
             bundles.Add(new StyleBundle("~/Content/sidenav").Include(
                 "~/Content/Custom/sidenav.css"));
 

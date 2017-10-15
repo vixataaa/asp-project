@@ -10,7 +10,6 @@ namespace SecondHand.Data.Models
 {
     public class Message : DataModel
     {
-        [Required]
         public string Text { get; set; }
 
         public virtual ApplicationUser Author { get; set; }

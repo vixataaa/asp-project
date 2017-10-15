@@ -9,6 +9,7 @@ using Microsoft.AspNet.SignalR;
 using SecondHand.Services.Notifications.Hubs;
 using SecondHand.Data.Repositories.Contracts;
 using Microsoft.AspNet.SignalR.Infrastructure;
+using Bytes2you.Validation;
 
 namespace SecondHand.Services.Notifications
 {
@@ -20,6 +21,10 @@ namespace SecondHand.Services.Notifications
 
         public ChatNotificationsService(INotificationsRepository notifications, IUsersRepository users, IHubContext notificationContext)
         {
+            Guard.WhenArgument(notifications, "notifications").IsNull().Throw();
+            Guard.WhenArgument(users, "users").IsNull().Throw();
+            Guard.WhenArgument(notificationContext, "notificationContext").IsNull().Throw();
+
             this.notificationContext = notificationContext;
             this.notifications = notifications;
             this.users = users;
@@ -27,11 +32,18 @@ namespace SecondHand.Services.Notifications
 
         public int UserNotificationsCount(string username)
         {
-            return this.users.GetByUsername(username).Notifications.Where(x => x.IsDeleted == false).Count();
+            return this
+                .users
+                .GetByUsername(username)
+                .Notifications
+                .Where(x => x.IsDeleted == false)
+                .Count();
         }
 
         public void ClearChatNotification(Chat chat, string username)
         {
+            var notifHub = GlobalHost.DependencyResolver.Resolve<IConnectionManager>().GetHubContext<NotificationHub>();
+
             var toRemove = this.notifications.All
                 .FirstOrDefault(x => x.User.UserName.ToLower() == username.ToLower()
                     && x.Chat.Id == chat.Id);
@@ -42,7 +54,7 @@ namespace SecondHand.Services.Notifications
             }
         }
 
-        public void NotifyUsers(Chat chat, string excludedUser)
+        public void NotifyUsers(Chat chat, string excludedUser, string message)
         {
             var notifHub = GlobalHost.DependencyResolver.Resolve<IConnectionManager>().GetHubContext<NotificationHub>();
 
@@ -64,12 +76,7 @@ namespace SecondHand.Services.Notifications
                     notifHub
                         .Clients
                         .User(participant.UserName)
-                        .filterNotifications();
-
-                    notifHub
-                        .Clients
-                        .User(participant.UserName)
-                        .updateNotifications(participant.Notifications.Count(x => !x.IsDeleted));
+                        .updateNotifications(participant.Notifications.Count(x => !x.IsDeleted), chat.Id.ToString(), excludedUser, message);
                 }
             }
         }

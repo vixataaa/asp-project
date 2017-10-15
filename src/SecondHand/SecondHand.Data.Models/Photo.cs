@@ -10,10 +10,8 @@ namespace SecondHand.Data.Models
 {
     public class Photo : DataModel
     {
-        [Required]
         public string Url { get; set; }
 
-        [Required]
         public virtual Advertisement Advertisement { get; set; }
     }
 }

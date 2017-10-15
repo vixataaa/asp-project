@@ -10,7 +10,6 @@ namespace SecondHand.Data.Models
 {
     public class Category : DataModel
     {
-        [Required]
         public string Name { get; set; }
 
         public virtual ICollection<Advertisement> Advertisements { get; set; }

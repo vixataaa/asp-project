@@ -13,16 +13,13 @@ namespace SecondHand.Services.Data
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ISaveContext context;
         private readonly ICategoryRepository categories;
 
-        public CategoryService(ICategoryRepository categories, ISaveContext context)
+        public CategoryService(ICategoryRepository categories)
         {
             Guard.WhenArgument(categories, "categories").IsNull().Throw();
-            Guard.WhenArgument(context, "context").IsNull().Throw();
 
             this.categories = categories;
-            this.context = context;
         }
 
         public void CreateCategory(string name)

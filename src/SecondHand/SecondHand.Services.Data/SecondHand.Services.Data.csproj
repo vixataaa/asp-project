@@ -56,10 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminUsersService.cs" />
     <Compile Include="AdvertisementsService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="ChatsService.cs" />
     <Compile Include="Common\SortType.cs" />
+    <Compile Include="Contracts\IAdminUsersService.cs" />
     <Compile Include="Contracts\IAdvertisementsService.cs" />
     <Compile Include="Contracts\ICategoryService.cs" />
     <Compile Include="Contracts\IChatsService.cs" />

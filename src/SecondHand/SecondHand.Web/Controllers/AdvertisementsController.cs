@@ -6,15 +6,12 @@ using Kendo.Mvc.UI;
 using SecondHand.Data.Models;
 using SecondHand.Services.Data.Common;
 using SecondHand.Services.Data.Contracts;
+using SecondHand.Web.Common.Constants;
 using SecondHand.Web.Infrastructure;
 using SecondHand.Web.Infrastructure.Attributes;
 using SecondHand.Web.Models.Advertisements;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity.Validation;
 using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
 
 namespace SecondHand.Web.Controllers
@@ -22,7 +19,7 @@ namespace SecondHand.Web.Controllers
     [SaveChanges]
     public class AdvertisementsController : Controller
     {
-        private const int DEFAULT_PAGE_SIZE = 6;
+        private int defaultPageSize;
 
         private readonly IUsersService userService;
         private readonly IAdvertisementsService advertService;
@@ -42,10 +39,12 @@ namespace SecondHand.Web.Controllers
             this.advertService = advertService;
             this.categoryService = categoryService;
             this.mapper = mapper;
+
+            this.defaultPageSize = ConfigConstants.DEFAULT_PAGE_SIZE;
         }
 
         [HttpGet]
-        public ActionResult Index(int pageNumber = 1, int pageSize = DEFAULT_PAGE_SIZE, string query = "",
+        public ActionResult Index(int pageNumber = 1, int pageSize = ConfigConstants.DEFAULT_PAGE_SIZE, string query = "",
             string sortProperty = "", SortType sortType = SortType.Descending,
             string category = "")
         {

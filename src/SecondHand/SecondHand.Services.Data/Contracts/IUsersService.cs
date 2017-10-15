@@ -14,5 +14,7 @@ namespace SecondHand.Services.Data.Contracts
         ApplicationUser GetById(string id);
 
         ApplicationUser GetByUsername(string username);
+
+        IQueryable<ApplicationUser> AllAndDeleted();
     }
 }

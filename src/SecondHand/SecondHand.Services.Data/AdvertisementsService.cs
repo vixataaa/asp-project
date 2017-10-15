@@ -17,22 +17,18 @@ namespace SecondHand.Services.Data
     {
         private readonly ICategoryRepository categories;
         private readonly IAdvertisementsRepository advertisements;
-        private readonly ISaveContext context;
         private int lastQueryRecordsCount;
         private readonly IUsersRepository users;
 
-        public AdvertisementsService(IAdvertisementsRepository advertisements, ICategoryRepository categories, IUsersRepository users,
-            ISaveContext context)
+        public AdvertisementsService(IAdvertisementsRepository advertisements, ICategoryRepository categories, IUsersRepository users)
         {
             Guard.WhenArgument(advertisements, "advertisements").IsNull().Throw();
             Guard.WhenArgument(categories, "categories").IsNull().Throw();
             Guard.WhenArgument(users, "users").IsNull().Throw();
-            Guard.WhenArgument(context, "context").IsNull().Throw();
 
             this.advertisements = advertisements;
             this.categories = categories;
             this.users = users;
-            this.context = context;
             this.lastQueryRecordsCount = 0;
         }
 
@@ -157,6 +153,16 @@ namespace SecondHand.Services.Data
         public IQueryable<Advertisement> GetUserAdvertisements(string username)
         {
             return this.advertisements.All.Where(x => x.AddedBy.UserName == username);
+        }
+
+        public void Remove(Advertisement adv)
+        {
+            this.advertisements.Delete(adv);
+        }
+
+        public IQueryable<Advertisement> AllAndDeleted()
+        {
+            return this.advertisements.AllAndDeleted;
         }
     }
 }

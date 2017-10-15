@@ -81,8 +81,7 @@ namespace SecondHand.Web.Areas.Chats.Controllers
             }
 
             var viewModel = this.mapper.Map<ChatRoomViewModel>(chat);
-
-            // this.chatNotificationService.ClearChatNotification(chat, loggedUser);
+            
             this.chatNotificationService.ClearChatNotification(chat, loggedUser);
 
             return this.View(viewModel);
@@ -95,7 +94,6 @@ namespace SecondHand.Web.Areas.Chats.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // Fix
                 return this.Json(null);
             }
 
@@ -116,9 +114,8 @@ namespace SecondHand.Web.Areas.Chats.Controllers
             var message = this.chatService.CreateMessage(chat, chatParticipant, model.Text);
 
             var viewModel = this.mapper.Map<MessageListItemViewModel>(message);
-
-            // this.chatNotificationService.NotifyUsers(chat);
-            this.chatNotificationService.NotifyUsers(chat, authorUsername);
+            
+            this.chatNotificationService.NotifyUsers(chat, authorUsername, message.Text);
 
             return this.PartialView("_ChatMessage", viewModel);
         }
