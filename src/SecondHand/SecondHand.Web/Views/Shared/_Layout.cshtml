@@ -22,8 +22,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Advertisements", "Index", "Advertisements")</li>
+                    <li>@Html.ActionLink(linkText: "Home", actionName: "Index", controllerName: "Home", routeValues: new { area = "" }, htmlAttributes: null)</li>
+                    <li>@Html.ActionLink(linkText: "Advertisements", actionName: "Index", controllerName: "Advertisements", routeValues: new { area = "" }, htmlAttributes: null)</li>
+                    <li>
+                        <a href=@Url.Action(actionName: "Index", controllerName: "Chats", routeValues: new { area = "Chats" })>
+                            Messages
+                            <span class="badge" id="notif-badge"></span>
+                        </a>
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -35,7 +41,7 @@
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
-    </div>
+    </div>    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jquery-unobtrusive")
@@ -43,7 +49,55 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/kendo")
 
-    @Html.Kendo().DeferredScripts()
+    @Html.Kendo().DeferredScripts()    
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        @Scripts.Render("~/bundles/signalr")
+        <script src="~/signalr/hubs"></script>
+        <script>
+            $(() => {
+                const hub = $.connection.notificationHub;
+
+                const getNotificationCount = () => {
+                    return new Promise((resolve, reject) => {
+                        $.ajax({
+                            method: 'POST',
+                            url: '/chats/chats/getnotificationscount',
+                            dataType: 'json',
+                            success: resolve,
+                            error: reject
+                        });
+                    });
+                };
+
+                hub.client.updateNotifications = (str) => {
+                    $('#notif-badge').html(str);
+                };
+
+                hub.client.requestNotifications = () => {
+                    getNotificationCount()
+                        .then((data) => {
+                            if (data !== 0) {
+                                $('#notif-badge').html(data);
+                            }
+                        });
+                };
+
+                $.connection.hub.start().done(() => {
+                    $('#my-btn').on('click', () => {
+                        hub.server.hello('Omg wtf');
+                    });
+                });
+            });
+
+            function htmlEncode(value) {
+                var encodedValue = $('<div />').text(value).html();
+                return encodedValue;
+            }
+        </script>
+    }
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

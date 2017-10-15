@@ -17,8 +17,41 @@
     ))
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("chatId", Model.Id)
+    @Html.Hidden("chatId", Model.Id, new { id = "chat-id" })
     @Html.TextBox("text")
     
     <input type="submit" value="Send"/>
+}
+
+@section scripts {
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            const chatId = $('#chat-id').val();
+
+            const filterNotificationsRequest = () => {
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                        method: 'POST',
+                        url: '/chats/chats/removenotification',
+                        data: {
+                            chatId: chatId
+                        },
+                        dataType: 'json',
+                        success: resolve,
+                        error: reject
+                    });
+                });
+            };
+
+
+            const hub = $.connection.notificationHub;
+            hub.filterNotifications = () => {
+                filterNotificationsRequest()
+                    .then(() => {
+                        console.log('Filtered.');
+                    });
+            };
+        </script>
+    }    
 }

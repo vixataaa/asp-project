@@ -8,6 +8,7 @@ using SecondHand.Data.Models;
 using Microsoft.AspNet.SignalR;
 using SecondHand.Services.Notifications.Hubs;
 using SecondHand.Data.Repositories.Contracts;
+using Microsoft.AspNet.SignalR.Infrastructure;
 
 namespace SecondHand.Services.Notifications
 {
@@ -32,7 +33,7 @@ namespace SecondHand.Services.Notifications
         public void ClearChatNotification(Chat chat, string username)
         {
             var toRemove = this.notifications.All
-                .FirstOrDefault(x => x.User.UserName.ToLower() == username.ToLower() 
+                .FirstOrDefault(x => x.User.UserName.ToLower() == username.ToLower()
                     && x.Chat.Id == chat.Id);
 
             if (toRemove != null)
@@ -43,18 +44,32 @@ namespace SecondHand.Services.Notifications
 
         public void NotifyUsers(Chat chat, string excludedUser)
         {
+            var notifHub = GlobalHost.DependencyResolver.Resolve<IConnectionManager>().GetHubContext<NotificationHub>();
+
             foreach (var participant in chat.Participants)
             {
-                if (participant.UserName.ToLower() != excludedUser.ToLower()
-                    && !participant.Notifications.Any(x => x.Chat.Id == chat.Id && x.IsDeleted == false))
+                if (participant.UserName.ToLower() != excludedUser.ToLower())
                 {
-                    var notification = new ChatNotification
+                    if (!participant.Notifications.Any(x => x.Chat.Id == chat.Id && x.IsDeleted == false))
                     {
-                        Chat = chat,
-                        User = participant                        
-                    };
+                        var notification = new ChatNotification
+                        {
+                            Chat = chat,
+                            User = participant
+                        };
 
-                    this.notifications.Add(notification);
+                        this.notifications.Add(notification);
+                    }
+
+                    notifHub
+                        .Clients
+                        .User(participant.UserName)
+                        .filterNotifications();
+
+                    notifHub
+                        .Clients
+                        .User(participant.UserName)
+                        .updateNotifications(participant.Notifications.Count(x => !x.IsDeleted));
                 }
             }
         }

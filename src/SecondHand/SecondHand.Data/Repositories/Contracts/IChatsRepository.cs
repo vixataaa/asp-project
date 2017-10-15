@@ -13,5 +13,7 @@ namespace SecondHand.Data.Repositories.Contracts
         Chat FindChat(Guid advertisementId, params string[] participantNames);
 
         Chat GetById(Guid id);
+
+        IQueryable<Chat> GetUserChats(string username);
     }
 }

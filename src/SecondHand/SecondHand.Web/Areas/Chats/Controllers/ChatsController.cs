@@ -3,6 +3,7 @@ using Bytes2you.Validation;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Services.Notifications.Contracts;
 using SecondHand.Web.Areas.Chats.Models.Chats;
+using SecondHand.Web.Infrastructure;
 using SecondHand.Web.Infrastructure.Attributes;
 using System;
 using System.Collections.Generic;
@@ -19,25 +20,49 @@ namespace SecondHand.Web.Areas.Chats.Controllers
         private readonly IChatsService chatService;
         private readonly IMapper mapper;
         private readonly IChatNotificationsService chatNotificationService;
+        private readonly IUsersService userService;
 
-        public ChatsController(IChatsService chatService, IChatNotificationsService chatNotificationService, IMapper mapper)
+        public ChatsController(IChatsService chatService, IChatNotificationsService chatNotificationService, IUsersService userService, IMapper mapper)
         {
             Guard.WhenArgument(chatService, "chatService").IsNull().Throw();
             Guard.WhenArgument(mapper, "mapper").IsNull().Throw();
             Guard.WhenArgument(chatNotificationService, "chatNotificationService").IsNull().Throw();
+            Guard.WhenArgument(userService, "userService").IsNull().Throw();
 
             this.chatService = chatService;
             this.mapper = mapper;
             this.chatNotificationService = chatNotificationService;
+            this.userService = userService;
         }
 
         public ActionResult Index()
         {
             var loggedUser = User.Identity.Name;
 
-            var result = string.Format("Chats of user {0}", loggedUser);
+            var chats = this
+                .chatService
+                .GetUserChats(loggedUser)
+                .MapTo<ChatListItemViewModel>()
+                .ToList();
 
-            return this.Content(result);
+            foreach (var chat in chats)
+            {
+                if (chat.NotifiedUsers.Any(x => x.ToLower() == loggedUser.ToLower()))
+                {
+                    chat.IsRead = false;
+                }
+                else
+                {
+                    chat.IsRead = true;
+                }
+            }
+
+            var viewModel = new UserChatsViewModel
+            {
+                Chats = chats
+            };
+
+            return this.View(viewModel);
         }
 
         [SaveChanges]
@@ -96,6 +121,37 @@ namespace SecondHand.Web.Areas.Chats.Controllers
             this.chatNotificationService.NotifyUsers(chat, authorUsername);
 
             return this.PartialView("_ChatMessage", viewModel);
+        }
+
+        [HttpPost]
+        [SaveChanges]
+        public ActionResult RemoveNotification(Guid chatId)
+        {
+            var loggedUser = User.Identity.Name;
+            var chat = this.chatService.GetChatById(chatId);
+
+            if (chat != null && chat.Participants.Any(x => x.UserName.ToLower() == loggedUser))
+            {
+                this.chatNotificationService.ClearChatNotification(chat, loggedUser);
+                return this.Json("Notification removed");
+            }
+
+            return new EmptyResult();
+        }
+
+        [HttpPost]
+        [SaveChanges]
+        public ActionResult GetNotificationsCount()
+        {
+            var loggedUser = User.Identity.Name;
+
+            var count = this
+                .userService
+                .GetByUsername(loggedUser)
+                .Notifications
+                .Count(x => !x.IsDeleted);
+
+            return this.Json(count);
         }
     }
 }

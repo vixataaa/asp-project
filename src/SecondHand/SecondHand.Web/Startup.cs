@@ -11,10 +11,7 @@ namespace SecondHand.Web
         {
             ConfigureAuth(app);
 
-            app.MapSignalR(new HubConfiguration
-            {
-                Resolver = GlobalHost.DependencyResolver
-            });
+            app.MapSignalR();
         }
     }
 }

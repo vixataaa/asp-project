@@ -38,5 +38,15 @@ namespace SecondHand.Data.Repositories
         {
             return this.All.FirstOrDefault(x => x.Id == id);
         }
+
+        public IQueryable<Chat> GetUserChats(string username)
+        {
+            var result = this
+                .All
+                .Where(x => x.Participants.Any(p => p.UserName.ToLower() == username.ToLower()) &&
+                    x.Advertisement.IsDeleted == false);
+
+            return result;
+        }
     }
 }

@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201710142323246_NotificationModel.Designer.cs">
       <DependentUpon>201710142323246_NotificationModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710151426229_chatManyToMany.cs" />
+    <Compile Include="Migrations\201710151426229_chatManyToMany.Designer.cs">
+      <DependentUpon>201710151426229_chatManyToMany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ChatsRepository.cs" />
     <Compile Include="Repositories\Contracts\IAdvertisementsRepository.cs" />
@@ -121,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710142323246_NotificationModel.resx">
       <DependentUpon>201710142323246_NotificationModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710151426229_chatManyToMany.resx">
+      <DependentUpon>201710151426229_chatManyToMany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

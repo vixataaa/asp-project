@@ -25,6 +25,8 @@ using SecondHand.Services.Notifications.Hubs;
 using System.Linq;
 using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNet.SignalR.Infrastructure;
+using Ninject.Extensions.Interception.Infrastructure.Language;
+using SecondHand.Services.Notifications;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectConfig), "Stop")]
@@ -79,7 +81,15 @@ namespace SecondHand.Web
 
         private static void RegisterSignalR(IKernel kernel)
         {
-            GlobalHost.DependencyResolver = new NinjectSignalRDependencyResolver(kernel);
+            var depResolver = new NinjectSignalRDependencyResolver(kernel);
+
+            GlobalHost.DependencyResolver = depResolver;
+
+            kernel.Bind<IHubContext>()
+                .ToMethod(ctx =>
+                {
+                    return depResolver.Resolve<IConnectionManager>().GetHubContext<NotificationHub>();
+                });
         }
 
         /// <summary>
@@ -109,9 +119,9 @@ namespace SecondHand.Web
                     .SelectAllClasses()
                     .BindDefaultInterface();
 
-                x.FromAssemblyContaining(typeof(IChatNotificationsService))
-                    .SelectAllClasses()
-                    .BindDefaultInterface();
+                //x.FromAssemblyContaining(typeof(IChatNotificationsService))
+                //    .SelectAllClasses()
+                //    .BindDefaultInterface();
             });
 
 
@@ -124,8 +134,7 @@ namespace SecondHand.Web
                 HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
 
             kernel.BindFilter<SaveChangesFilter>(FilterScope.Controller, 0).WhenActionMethodHas<SaveChangesAttribute>();
-
-            kernel.Bind<IHubContext>().ToMethod(ctx => GlobalHost.ConnectionManager.GetHubContext<NotificationHub>()).InSingletonScope();
+            var chatNotificationService = kernel.Bind<IChatNotificationsService>().To<ChatNotificationsService>();
         }
 
         /// <summary>

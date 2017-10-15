@@ -55,14 +55,16 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-offset-9 col-md-3">
-                @(Html.
-                    ActionLink("Message", "ChatRoom", "Chats", 
-                        new { username = Model.PublisherName, advertisementId = Model.Id.ToString(), area = "Chats" }, 
+        @if (User.Identity.Name != Model.PublisherName)
+        {
+            <div class="row">
+                <div class="col-md-offset-9 col-md-3">
+                    @(Html.
+                    ActionLink("Message", "ChatRoom", "Chats",
+                        new { username = Model.PublisherName, advertisementId = Model.Id.ToString(), area = "Chats" },
                         new { @class = "btn btn-primary" }))
+                </div>
             </div>
-        </div>
-
+        }       
     </div>
 </div>

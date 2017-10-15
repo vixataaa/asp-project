@@ -2,8 +2,6 @@
     ViewBag.Title = "Home Page";
 }
 
-<a id ="my-btn" class="btn btn-primary">Click me</a>
-
 <div class="jumbotron">
     <h1>ASP.NET</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
@@ -31,30 +29,3 @@
         <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
-
-@section scripts
-{
-    @Scripts.Render("~/bundles/signalr")
-    <script src="~/signalr/hubs"></script>
-
-    <script>
-        $(() => {
-            const hub = $.connection.notificationHub;
-
-            hub.client.updateNotifications = (str) => {
-                console.log(str);
-            };
-
-            $.connection.hub.start().done(() => {
-                $('#my-btn').on('click', () => {
-                    hub.server.hello('Omg wtf');
-                });
-            });
-        });
-
-    function htmlEncode(value) {
-        var encodedValue = $('<div />').text(value).html();
-        return encodedValue;
-    }
-    </script>
-}

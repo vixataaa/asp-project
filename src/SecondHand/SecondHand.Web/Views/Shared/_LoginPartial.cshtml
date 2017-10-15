@@ -9,7 +9,7 @@
     <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                Hello @User.Identity.GetUserName()!
+                Hello @User.Identity.GetUserName()! @(User.IsInRole("Admin") ? "(Admin)" : "")
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">

@@ -12,23 +12,32 @@ namespace SecondHand.Data.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<MsSqlDbContext>
     {
-        private const string AdministratorUserName = "admin@admin.com";
+        private const string AdministratorEmail = "admin@admin.com";
+        private const string AdministratorUserName = "admin";
         private const string AdministratorPassword = "123456";
 
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationDataLossAllowed = false;
         }
 
         protected override void Seed(MsSqlDbContext context)
+        {
+            this.SeedUsers(context);
+            this.SeedData(context);
+            context.SaveChanges();
+        }
+
+        private void SeedUsers(MsSqlDbContext context)
         {
             if (!context.Roles.Any())
             {
                 // Init roles
                 var initialRoles = new string[]
                 {
-                    "Admin"
+                    "Admin",
+                    "User"
                 };
 
                 var roleStore = new RoleStore<IdentityRole>(context);
@@ -39,6 +48,25 @@ namespace SecondHand.Data.Migrations
                     roleManager.Create(new IdentityRole { Name = r });
                 }
 
+                var userStore = new UserStore<ApplicationUser>(context);
+                var userManager = new UserManager<ApplicationUser>(userStore);
+                var admin = new ApplicationUser
+                {
+                    UserName = AdministratorUserName,
+                    Email = AdministratorEmail,
+                    CreatedOn = DateTime.Now,
+                    EmailConfirmed = true
+                };
+
+                userManager.Create(admin, AdministratorPassword);
+                userManager.AddToRole(admin.Id, "Admin");
+            }
+        }
+
+        private void SeedData(MsSqlDbContext context)
+        {
+            if (!context.Categories.Any())
+            {
                 var categories = new List<Category>()
                 {
                     new Category { Name = "Estates" },
@@ -55,22 +83,6 @@ namespace SecondHand.Data.Migrations
                 {
                     context.Categories.Add(cat);
                 }
-
-                // Init default admin
-                //var userStore = new UserStore<ApplicationUser>(context);
-                //var userManager = new UserManager<ApplicationUser>(userStore);
-                //var user = new Person
-                //{
-                //    Email = AdministratorUserName,
-                //    UserName = AdministratorUserName,
-                //    EmailConfirmed = true,
-                //    CreatedOn = DateTime.Now
-                //};
-
-                //userManager.Create(user, AdministratorPassword);
-                //userManager.AddToRole(user.Id, "Admin");
-
-                context.SaveChanges();
             }
         }
     }
