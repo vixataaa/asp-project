@@ -69,7 +69,6 @@ namespace SecondHand.Services.Data
             };
 
             this.chats.Add(chat);
-            this.context.SaveChanges();
         }
 
         public Chat GetChat(Guid advertisementId, params string[] participantNames)
@@ -99,7 +98,6 @@ namespace SecondHand.Services.Data
             };
 
             chat.Messages.Add(message);
-            this.context.SaveChanges();
 
             return message;
         }

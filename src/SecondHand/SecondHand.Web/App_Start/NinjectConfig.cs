@@ -15,6 +15,16 @@ using SecondHand.Data.Models;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Data.Repositories.Contracts;
 using AutoMapper;
+using Ninject.Web.Mvc.FilterBindingSyntax;
+using SecondHand.Web.Infrastructure.ActionFilters;
+using System.Web.Mvc;
+using SecondHand.Web.Infrastructure.Attributes;
+using SecondHand.Services.Notifications.Contracts;
+using Microsoft.AspNet.SignalR;
+using SecondHand.Services.Notifications.Hubs;
+using System.Linq;
+using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.AspNet.SignalR.Infrastructure;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectConfig), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectConfig), "Stop")]
@@ -56,6 +66,7 @@ namespace SecondHand.Web
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
+                RegisterSignalR(kernel);
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -64,6 +75,11 @@ namespace SecondHand.Web
                 kernel.Dispose();
                 throw;
             }
+        }
+
+        private static void RegisterSignalR(IKernel kernel)
+        {
+            GlobalHost.DependencyResolver = new NinjectSignalRDependencyResolver(kernel);
         }
 
         /// <summary>
@@ -92,10 +108,10 @@ namespace SecondHand.Web
                 x.FromAssemblyContaining(typeof(IUsersRepository))
                     .SelectAllClasses()
                     .BindDefaultInterface();
-                    //.Configure((cfg, type) =>
-                    //{
-                    //    cfg.InRequestScope();
-                    //});
+
+                x.FromAssemblyContaining(typeof(IChatNotificationsService))
+                    .SelectAllClasses()
+                    .BindDefaultInterface();
             });
 
 
@@ -106,6 +122,34 @@ namespace SecondHand.Web
             kernel.Bind(typeof(IUserStore<ApplicationUser>)).To(typeof(UserStore<ApplicationUser>));
             kernel.Bind<IAuthenticationManager>().ToMethod(c =>
                 HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
+
+            kernel.BindFilter<SaveChangesFilter>(FilterScope.Controller, 0).WhenActionMethodHas<SaveChangesAttribute>();
+
+            kernel.Bind<IHubContext>().ToMethod(ctx => GlobalHost.ConnectionManager.GetHubContext<NotificationHub>()).InSingletonScope();
         }
+
+        /// <summary>
+        /// SignalR magic
+        /// </summary>
+        private class NinjectSignalRDependencyResolver : DefaultDependencyResolver
+        {
+            private readonly IKernel kernel;
+            public NinjectSignalRDependencyResolver(IKernel kernel)
+            {
+                this.kernel = kernel;
+            }
+
+            public override object GetService(Type serviceType)
+            {
+                return kernel.TryGet(serviceType) ?? base.GetService(serviceType);
+            }
+
+            public override System.Collections.Generic.IEnumerable<object> GetServices(Type serviceType)
+            {
+                return kernel.GetAll(serviceType).Concat(base.GetServices(serviceType));
+            }
+
+        }
+        //
     }
 }

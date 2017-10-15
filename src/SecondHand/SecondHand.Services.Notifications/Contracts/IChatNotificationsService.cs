@@ -11,6 +11,8 @@ namespace SecondHand.Services.Notifications.Contracts
     {
         void ClearChatNotification(Chat chat, string username);
 
-        void NotifyUsers(IEnumerable<ApplicationUser> participants);
+        void NotifyUsers(Chat chat, string excludedUser);
+
+        int UserNotificationsCount(string username);
     }
 }

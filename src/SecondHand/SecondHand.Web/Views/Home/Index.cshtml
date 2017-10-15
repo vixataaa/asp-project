@@ -41,7 +41,7 @@
         $(() => {
             const hub = $.connection.notificationHub;
 
-            hub.client.logMsg = (str) => {
+            hub.client.updateNotifications = (str) => {
                 console.log(str);
             };
 

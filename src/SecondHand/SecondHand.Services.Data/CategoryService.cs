@@ -32,7 +32,6 @@ namespace SecondHand.Services.Data
             if (foundCategory == null)
             {
                 this.categories.Add(new Category { Name = name });
-                this.context.SaveChanges();
             }
         }
 

@@ -27,6 +27,8 @@ namespace SecondHand.Data
 
         public IDbSet<Message> Messages { get; set; }
 
+        public IDbSet<ChatNotification> Notifications { get; set; }
+
         public static MsSqlDbContext Create()
         {
             return new MsSqlDbContext();

@@ -12,10 +12,12 @@ using SecondHand.Data.Models;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Web.Models.Manage;
 using Bytes2you.Validation;
+using SecondHand.Web.Infrastructure.Attributes;
 
 namespace SecondHand.Web.Controllers
 {
     [Authorize]
+    [SaveChanges]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -122,6 +124,7 @@ namespace SecondHand.Web.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
+        [SaveChanges]
         public ActionResult ChangeDetails(ChangeUserDetailsViewModel model)
         {
             var user = this.userService.GetById(User.Identity.GetUserId());

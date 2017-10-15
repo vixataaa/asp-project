@@ -7,6 +7,7 @@ using SecondHand.Data.Models;
 using SecondHand.Services.Data.Common;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Web.Infrastructure;
+using SecondHand.Web.Infrastructure.Attributes;
 using SecondHand.Web.Models.Advertisements;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ using System.Web.Mvc;
 
 namespace SecondHand.Web.Controllers
 {
+    [SaveChanges]
     public class AdvertisementsController : Controller
     {
         private const int DEFAULT_PAGE_SIZE = 6;
@@ -81,6 +83,7 @@ namespace SecondHand.Web.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
+        [SaveChanges]
         public ActionResult AddAdvertisement(AdvertisementCreationViewModel model)
         {
             if (!ModelState.IsValid)
@@ -121,6 +124,7 @@ namespace SecondHand.Web.Controllers
 
         [Authorize]
         [HttpPost]
+        [SaveChanges]
         public ActionResult Delete(Guid id)
         {
             var adv = this.advertService.GetById(id);
@@ -163,6 +167,7 @@ namespace SecondHand.Web.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
+        [SaveChanges]
         public ActionResult Edit(AdvertisementEditViewModel model)
         {
             if (!this.ModelState.IsValid)

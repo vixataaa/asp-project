@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using SecondHand.Data.Models;
 using SecondHand.Web.Models.Account;
 using Bytes2you.Validation;
+using SecondHand.Web.Infrastructure.Attributes;
 
 namespace SecondHand.Web.Controllers
 {

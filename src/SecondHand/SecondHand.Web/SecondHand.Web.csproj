@@ -235,6 +235,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ActionFilters\SaveChangesFilter.cs" />
+    <Compile Include="Infrastructure\Attributes\SaveChangesAttribute.cs" />
     <Compile Include="Infrastructure\Extensions\CollectionExtensions.cs" />
     <Compile Include="Infrastructure\Mapper\IHaveCustomMappings.cs" />
     <Compile Include="Infrastructure\Mapper\IMapFrom.cs" />
@@ -393,7 +395,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Infrastructure\ActionFilters\" />
     <Folder Include="Models\Identity\" />
     <Folder Include="Views\Shared\EditorTemplates\" />
   </ItemGroup>

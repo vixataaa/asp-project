@@ -23,6 +23,8 @@ namespace SecondHand.Data.Models
 
         public virtual ICollection<Advertisement> Advertisements { get; set; }
 
+        public virtual ICollection<ChatNotification> Notifications { get; set; }
+
         [Index]
         public bool IsDeleted { get; set; }
 

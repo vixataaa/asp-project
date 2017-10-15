@@ -58,14 +58,12 @@ namespace SecondHand.Services.Data
                 }
 
                 this.advertisements.Add(adv);
-                this.context.SaveChanges();
             }
         }
 
         public void Edit(Advertisement adv)
         {
             this.advertisements.Update(adv);
-            this.context.SaveChanges();
         }
 
         public void Remove(Guid id)
@@ -75,7 +73,6 @@ namespace SecondHand.Services.Data
             if (adv != null)
             {
                 this.advertisements.Delete(adv);
-                this.context.SaveChanges();
             }
         }
 

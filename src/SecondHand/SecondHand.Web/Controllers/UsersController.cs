@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Bytes2you.Validation;
 using SecondHand.Services.Data.Contracts;
+using SecondHand.Web.Infrastructure.Attributes;
 using SecondHand.Web.Models.Users;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Web.Mvc;
 
 namespace SecondHand.Web.Controllers
 {
+    [SaveChanges]
     public class UsersController : Controller
     {
         private readonly IUsersService userService;

@@ -14,5 +14,7 @@ namespace SecondHand.Data.Models
         public virtual ICollection<Message> Messages { get; set; }
 
         public virtual Advertisement Advertisement { get; set; }
+
+        public virtual ICollection<ChatNotification> Notifications { get; set; }
     }
 }

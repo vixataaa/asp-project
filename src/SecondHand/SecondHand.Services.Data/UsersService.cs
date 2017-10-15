@@ -39,7 +39,6 @@ namespace SecondHand.Services.Data
         public void UpdateUserProfile(ApplicationUser user)
         {
             this.users.Update(user);
-            this.context.SaveChanges();
         }
     }
 }
