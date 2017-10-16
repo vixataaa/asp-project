@@ -39,7 +39,7 @@ namespace SecondHand.Web.Areas.Administration.Controllers
         {
             var result = this.userService
                 .AllAndDeleted()
-                .MapTo<UserGridViewModel>()
+                .Select(x => this.mapper.Map<UserGridViewModel>(x))
                 .ToList()
                 .ToDataSourceResult(request);
 

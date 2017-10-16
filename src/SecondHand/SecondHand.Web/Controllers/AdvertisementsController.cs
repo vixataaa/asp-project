@@ -1,4 +1,8 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Bytes2you.Validation;
 using Kendo.Mvc.Extensions;
@@ -7,12 +11,8 @@ using SecondHand.Data.Models;
 using SecondHand.Services.Data.Common;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Web.Common.Constants;
-using SecondHand.Web.Infrastructure;
 using SecondHand.Web.Infrastructure.Attributes;
 using SecondHand.Web.Models.Advertisements;
-using System;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace SecondHand.Web.Controllers
 {
@@ -33,8 +33,7 @@ namespace SecondHand.Web.Controllers
             Guard.WhenArgument(advertService, "advertService").IsNull().Throw();
             Guard.WhenArgument(categoryService, "categoryService").IsNull().Throw();
             Guard.WhenArgument(mapper, "mapper").IsNull().Throw();
-
-
+            
             this.userService = userService;
             this.advertService = advertService;
             this.categoryService = categoryService;
@@ -50,7 +49,8 @@ namespace SecondHand.Web.Controllers
         {
             var advertisements = this.advertService
                 .GetAdvertisements(pageNumber, pageSize, query, sortProperty, sortType, category)
-                .MapTo<AdvertisementListItemViewModel>()
+                .ToList()
+                .Select(x => this.mapper.Map<AdvertisementListItemViewModel>(x))
                 .ToList();
 
             var viewModel = new AdvertisementIndexViewModel
@@ -91,7 +91,8 @@ namespace SecondHand.Web.Controllers
             }
 
             var dbModel = this.mapper.Map<Advertisement>(model);
-            dbModel.AddedBy = this.userService.GetByUsername(User.Identity.Name);
+            var username = this.ControllerContext.HttpContext.User.Identity.Name;
+            dbModel.AddedBy = this.userService.GetByUsername(username);
 
             this.advertService.CreateAdvertisement(dbModel, model.Category);
 
@@ -116,7 +117,7 @@ namespace SecondHand.Web.Controllers
         [Authorize]
         public ActionResult MyAdvertisements()
         {
-            this.ViewData["username"] = User.Identity.Name;
+            this.ViewData["username"] = this.ControllerContext.HttpContext.User.Identity.Name;
 
             return this.View();
         }
@@ -133,7 +134,7 @@ namespace SecondHand.Web.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            if (adv.AddedBy.UserName != User.Identity.Name)
+            if (adv.AddedBy.UserName != this.ControllerContext.HttpContext.User.Identity.Name)
             {
                 return this.RedirectToAction("Details", new { id = id });
             }
@@ -153,7 +154,7 @@ namespace SecondHand.Web.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            if (adv.AddedBy.UserName != User.Identity.Name)
+            if (adv.AddedBy.UserName != this.ControllerContext.HttpContext.User.Identity.Name)
             {
                 return this.RedirectToAction("Details", new { id = id });
             }
@@ -181,7 +182,7 @@ namespace SecondHand.Web.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            if (User.Identity.Name != adv.AddedBy.UserName)
+            if (this.ControllerContext.HttpContext.User.Identity.Name != adv.AddedBy.UserName)
             {
                 return this.RedirectToAction("Details", new { id = model.Id.ToString() });
             }
@@ -203,7 +204,8 @@ namespace SecondHand.Web.Controllers
 
             var result = this.advertService
                 .GetUserAdvertisements(loggedUsername)
-                .ProjectTo<AdvertisementListItemViewModel>()
+                .ToList()
+                .Select(x => this.mapper.Map<AdvertisementListItemViewModel>(x))
                 .ToDataSourceResult(request);
 
             return this.Json(result);

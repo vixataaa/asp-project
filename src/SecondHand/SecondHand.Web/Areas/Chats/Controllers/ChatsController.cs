@@ -42,7 +42,7 @@ namespace SecondHand.Web.Areas.Chats.Controllers
             var chats = this
                 .chatService
                 .GetUserChats(loggedUser)
-                .MapTo<ChatListItemViewModel>()
+                .Select(x => this.mapper.Map<ChatListItemViewModel>(x))
                 .ToList();
 
             foreach (var chat in chats)

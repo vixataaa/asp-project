@@ -36,7 +36,7 @@ namespace SecondHand.Web.Areas.Administration.Controllers
         {
             var result = this.advertisementService
                 .GetAdvertisements()
-                .MapTo<AdvertisementGridViewModel>()
+                .Select(x => this.mapper.Map<AdvertisementGridViewModel>(x))
                 .ToList()
                 .ToDataSourceResult(request);
 
