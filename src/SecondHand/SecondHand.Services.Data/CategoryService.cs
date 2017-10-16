@@ -22,16 +22,6 @@ namespace SecondHand.Services.Data
             this.categories = categories;
         }
 
-        public void CreateCategory(string name)
-        {
-            var foundCategory = this.categories.GetCategoryByName(name);
-
-            if (foundCategory == null)
-            {
-                this.categories.Add(new Category { Name = name });
-            }
-        }
-
         public IQueryable<Category> GetAll()
         {
             return this.categories.All;

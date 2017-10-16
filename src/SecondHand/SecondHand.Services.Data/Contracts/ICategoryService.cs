@@ -9,8 +9,6 @@ namespace SecondHand.Services.Data.Contracts
 {
     public interface ICategoryService
     {
-        void CreateCategory(string name);
-
         IQueryable<Category> GetAll();
     }
 }
