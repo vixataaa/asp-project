@@ -49,7 +49,6 @@ namespace SecondHand.Web.Controllers
         {
             var advertisements = this.advertService
                 .GetAdvertisements(pageNumber, pageSize, query, sortProperty, sortType, category)
-                .ToList()
                 .Select(x => this.mapper.Map<AdvertisementListItemViewModel>(x))
                 .ToList();
 
@@ -204,7 +203,6 @@ namespace SecondHand.Web.Controllers
 
             var result = this.advertService
                 .GetUserAdvertisements(loggedUsername)
-                .ToList()
                 .Select(x => this.mapper.Map<AdvertisementListItemViewModel>(x))
                 .ToDataSourceResult(request);
 

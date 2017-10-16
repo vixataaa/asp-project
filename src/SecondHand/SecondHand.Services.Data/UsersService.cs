@@ -6,6 +6,7 @@ using SecondHand.Data.Repositories.Contracts;
 using System;
 using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 
 namespace SecondHand.Services.Data
 {
@@ -20,9 +21,9 @@ namespace SecondHand.Services.Data
             this.users = users;
         }
 
-        public IQueryable<ApplicationUser> AllAndDeleted()
+        public IEnumerable<ApplicationUser> AllAndDeleted()
         {
-            return this.users.AllAndDeleted;
+            return this.users.AllAndDeleted.ToList();
         }
 
         public ApplicationUser GetById(string id)

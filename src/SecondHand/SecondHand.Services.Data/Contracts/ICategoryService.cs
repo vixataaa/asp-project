@@ -9,6 +9,6 @@ namespace SecondHand.Services.Data.Contracts
 {
     public interface ICategoryService
     {
-        IQueryable<Category> GetAll();
+        IEnumerable<Category> GetAll();
     }
 }

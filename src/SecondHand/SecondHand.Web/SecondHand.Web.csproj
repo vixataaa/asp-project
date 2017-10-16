@@ -244,7 +244,6 @@
     <Compile Include="Areas\Administration\Controllers\AdvertisementsPanelController.cs" />
     <Compile Include="Areas\Administration\Controllers\Base\AdminController.cs" />
     <Compile Include="Areas\Administration\Controllers\PanelController.cs" />
-    <Compile Include="Areas\Administration\Controllers\UsersPanelController.cs" />
     <Compile Include="Areas\Administration\Models\AdvertisementsPanel\AdvertisementGridViewModel.cs" />
     <Compile Include="Areas\Administration\Models\UsersPanel\UserGridViewModel.cs" />
     <Compile Include="Areas\Chats\ChatsAreaRegistration.cs" />
@@ -368,7 +367,6 @@
     <Content Include="Areas\Administration\Views\AdvertisementsPanel\Index.cshtml" />
     <Content Include="Areas\Chats\Views\Shared\DisplayTemplates\ChatRoomViewModel.cshtml" />
     <Content Include="Areas\Chats\Views\Shared\DisplayTemplates\UserChatsViewModel.cshtml" />
-    <Content Include="Areas\Administration\Views\UsersPanel\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Libraries\Kendo.Mvc.dll" />
     <Content Include="Libraries\Kendo.Mvc.xml" />

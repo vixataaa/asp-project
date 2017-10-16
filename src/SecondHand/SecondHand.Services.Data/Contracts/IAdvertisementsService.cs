@@ -15,16 +15,16 @@ namespace SecondHand.Services.Data.Contracts
 
         void CreateAdvertisement(Advertisement adv, string categoryName);
 
-        IQueryable<Advertisement> GetAdvertisements();
+        IEnumerable<Advertisement> GetAdvertisements();
 
-        IQueryable<Advertisement> AllAndDeleted();
+        IEnumerable<Advertisement> AllAndDeleted();
 
-        IQueryable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "");
+        IEnumerable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "");
 
-        IQueryable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "",
+        IEnumerable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "",
             string sortProperty = "", SortType sortType = SortType.Ascending, string category = "");
 
-        IQueryable<Advertisement> GetUserAdvertisements(string username);
+        IEnumerable<Advertisement> GetUserAdvertisements(string username);
 
         Advertisement GetById(Guid id);
 

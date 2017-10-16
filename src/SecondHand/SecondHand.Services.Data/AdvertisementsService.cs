@@ -72,19 +72,19 @@ namespace SecondHand.Services.Data
             }
         }
 
-        public IQueryable<Advertisement> GetAdvertisements()
+        public IEnumerable<Advertisement> GetAdvertisements()
         {
-            return this.advertisements.All;
+            return this.advertisements.All.ToList();
         }
 
-        public IQueryable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "")
+        public IEnumerable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "")
         {
             var result = this.GetAdvertisements(pageNumber, pageSize, query, "", SortType.Ascending, "");
 
             return result;
         }
 
-        public IQueryable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "",
+        public IEnumerable<Advertisement> GetAdvertisements(int pageNumber = 1, int pageSize = 5, string query = "",
             string sortProperty = "", SortType sortType = SortType.Ascending, string category = "")
         {
             var result = this.advertisements.All;
@@ -142,7 +142,7 @@ namespace SecondHand.Services.Data
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize);
 
-            return result;
+            return result.ToList();
         }
 
         public Advertisement GetById(Guid id)
@@ -150,9 +150,9 @@ namespace SecondHand.Services.Data
             return this.advertisements.GetById(id);
         }
 
-        public IQueryable<Advertisement> GetUserAdvertisements(string username)
+        public IEnumerable<Advertisement> GetUserAdvertisements(string username)
         {
-            return this.advertisements.All.Where(x => x.AddedBy.UserName == username);
+            return this.advertisements.All.Where(x => x.AddedBy.UserName == username).ToList();
         }
 
         public void Remove(Advertisement adv)
@@ -160,9 +160,9 @@ namespace SecondHand.Services.Data
             this.advertisements.Delete(adv);
         }
 
-        public IQueryable<Advertisement> AllAndDeleted()
+        public IEnumerable<Advertisement> AllAndDeleted()
         {
-            return this.advertisements.AllAndDeleted;
+            return this.advertisements.AllAndDeleted.ToList();
         }
     }
 }

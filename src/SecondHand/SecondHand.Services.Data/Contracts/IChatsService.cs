@@ -17,6 +17,6 @@ namespace SecondHand.Services.Data.Contracts
 
         Message CreateMessage(Chat chat, ApplicationUser author, string text);
 
-        IQueryable<Chat> GetUserChats(string username);
+        IEnumerable<Chat> GetUserChats(string username);
     }
 }

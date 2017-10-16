@@ -99,9 +99,9 @@ namespace SecondHand.Services.Data
             return message;
         }
 
-        public IQueryable<Chat> GetUserChats(string username)
+        public IEnumerable<Chat> GetUserChats(string username)
         {
-            return this.chats.GetUserChats(username);
+            return this.chats.GetUserChats(username).ToList();
         }
     }
 }

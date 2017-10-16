@@ -37,7 +37,7 @@ namespace SecondHand.Web.Areas.Chats.Controllers
 
         public ActionResult Index()
         {
-            var loggedUser = User.Identity.Name;
+            var loggedUser = this.ControllerContext.HttpContext.User.Identity.Name;
 
             var chats = this
                 .chatService

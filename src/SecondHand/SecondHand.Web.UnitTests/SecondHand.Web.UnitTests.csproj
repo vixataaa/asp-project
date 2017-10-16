@@ -137,7 +137,6 @@
   <ItemGroup>
     <Compile Include="Areas\Administration\Controllers\AdvertisementsPanelControllerTests.cs" />
     <Compile Include="Areas\Administration\Controllers\PanelControllerTests.cs" />
-    <Compile Include="Areas\Administration\Controllers\UsersPanelControllerTests.cs" />
     <Compile Include="Controllers\AdvertisementControllerTests.cs" />
     <Compile Include="Controllers\UserControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -22,9 +22,9 @@ namespace SecondHand.Services.Data
             this.categories = categories;
         }
 
-        public IQueryable<Category> GetAll()
+        public IEnumerable<Category> GetAll()
         {
-            return this.categories.All;
+            return this.categories.All.ToList();
         }
     }
 }
