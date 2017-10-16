@@ -60,6 +60,9 @@ namespace SecondHand.Web.Areas.Chats.Controllers
             var viewModel = new UserChatsViewModel
             {
                 Chats = chats
+                    .Where(x => x.ModifiedOn.HasValue)
+                    .OrderBy(x => x.ModifiedOn.Value)
+                    
             };
 
             return this.View(viewModel);

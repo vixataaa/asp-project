@@ -20,6 +20,8 @@ namespace SecondHand.Web.Areas.Chats.Models.Chats
 
         public bool IsRead { get; set; }
 
+        public DateTime? ModifiedOn { get; set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Chat, ChatListItemViewModel>()

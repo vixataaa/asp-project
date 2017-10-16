@@ -17,7 +17,7 @@ namespace SecondHand.Services.Data
         private readonly IAdvertisementsRepository advertisements;
         private readonly IUsersRepository users;
 
-        public ChatsService(IChatsRepository chats, IAdvertisementsRepository advertisements, 
+        public ChatsService(IChatsRepository chats, IAdvertisementsRepository advertisements,
             IUsersRepository users)
         {
             Guard.WhenArgument(chats, "chats").IsNull().Throw();
@@ -72,7 +72,7 @@ namespace SecondHand.Services.Data
         public Chat GetChat(Guid advertisementId, params string[] participantNames)
         {
             var chat = this.chats.FindChat(advertisementId, participantNames);
-            
+
             if (chat == null)
             {
                 return this.CreateChat(advertisementId, participantNames);
@@ -95,6 +95,7 @@ namespace SecondHand.Services.Data
             };
 
             chat.Messages.Add(message);
+            this.chats.Update(chat);
 
             return message;
         }
