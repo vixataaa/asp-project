@@ -38,7 +38,7 @@ namespace SecondHand.Web.Controllers
             {
                 return this.RedirectToAction("Index", "Home");
             }
-
+            
             var viewModel = this.mapper.Map<UserProfileViewModel>(user);
 
             return this.View(viewModel);
