@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\vixat\Desktop\GitRepos\asp-project\src\SecondHand\SecondHand.Web\Areas\Administration\Controllers\AdvertisementsPanelController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoMapper;
+using Bytes2you.Validation;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
+using SecondHand.Data.Models;
+using SecondHand.Services.Data.Contracts;
+using SecondHand.Web.Areas.Administration.Controllers.Base;
+using SecondHand.Web.Areas.Administration.Models.AdvertisementsPanel;
+using SecondHand.Web.Infrastructure;
+using SecondHand.Web.Infrastructure.Attributes;
+using System.Linq;
+using System.Web.Mvc;
+
+namespace SecondHand.Web.Areas.Administration.Controllers
+{
+    public class AdvertisementsPanelController : AdminController
+    {
+        private readonly IAdvertisementsService advertisementService;
+        private readonly IMapper mapper;
+
+        public AdvertisementsPanelController(IAdvertisementsService advertisementService, IMapper mapper)
+        {
+            Guard.WhenArgument(advertisementService, &quot;advertisementService&quot;).IsNull().Throw();
+            Guard.WhenArgument(mapper, &quot;mapper&quot;).IsNull().Throw();
+
+            this.advertisementService = advertisementService;
+            this.mapper = mapper;
+        }
+
+        public ActionResult Index()
+        {
+            return this.View();
+        }
+
+        public ActionResult GetAdvertisements([DataSourceRequest]DataSourceRequest request)
+        {
+            var result = this.advertisementService
+                .GetAdvertisements()
+                .Select(x =&gt; this.mapper.Map&lt;AdvertisementGridViewModel&gt;(x))
+                .ToList()
+                .ToDataSourceResult(request);
+
+            return this.Json(result);
+        }
+
+        [SaveChanges]
+        public ActionResult EditAdvertisement(AdvertisementGridViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbModel = this.mapper.Map&lt;Advertisement&gt;(model);
+                this.advertisementService.Edit(dbModel);
+            }
+
+            return this.Json(new { model });
+        }
+
+        [SaveChanges]
+        public ActionResult RemoveAdvertisement(AdvertisementGridViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbModel = this.mapper.Map&lt;Advertisement&gt;(model);
+                this.advertisementService.Remove(dbModel);
+            }
+
+            return this.Json(new { model });
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,9,21,106,1],[22,9,22,10,1],[23,13,23,95,1],[24,13,24,67,1],[26,13,26,62,1],[27,13,27,34,1],[28,9,28,10,1],[31,9,31,10,1],[32,13,32,32,1],[33,9,33,10,1],[36,9,36,10,1],[37,13,39,30,1],[39,30,39,76,1],[39,76,41,46,1],[37,13,41,46,1],[43,13,43,38,1],[44,9,44,10,1],[48,9,48,10,1],[49,13,49,36,1],[50,13,50,14,1],[51,17,51,69,1],[52,17,52,57,1],[53,13,53,14,1],[55,13,55,45,1],[56,9,56,10,1],[60,9,60,10,1],[61,13,61,36,1],[62,13,62,14,1],[63,17,63,69,1],[64,17,64,59,1],[65,13,65,14,1],[67,13,67,45,1],[68,9,68,10,1]]);
+    </script>
+  </body>
+</html>

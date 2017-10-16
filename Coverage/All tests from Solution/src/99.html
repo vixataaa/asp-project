@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>c:\users\vixat\desktop\gitrepos\asp-project\src\secondhand\secondhand.services.notifications\chatnotificationsservice.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using SecondHand.Services.Notifications.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SecondHand.Data.Models;
+using Microsoft.AspNet.SignalR;
+using SecondHand.Services.Notifications.Hubs;
+using SecondHand.Data.Repositories.Contracts;
+using Microsoft.AspNet.SignalR.Infrastructure;
+using Bytes2you.Validation;
+
+namespace SecondHand.Services.Notifications
+{
+    public class ChatNotificationsService : IChatNotificationsService
+    {
+        private readonly INotificationsRepository notifications;
+        private readonly IHubContext notificationContext;
+        private readonly IUsersRepository users;
+
+        public ChatNotificationsService(INotificationsRepository notifications, IUsersRepository users, IHubContext notificationContext)
+        {
+            Guard.WhenArgument(notifications, &quot;notifications&quot;).IsNull().Throw();
+            Guard.WhenArgument(users, &quot;users&quot;).IsNull().Throw();
+            Guard.WhenArgument(notificationContext, &quot;notificationContext&quot;).IsNull().Throw();
+
+            this.notificationContext = notificationContext;
+            this.notifications = notifications;
+            this.users = users;
+        }
+
+        public int UserNotificationsCount(string username)
+        {
+            return this
+                .users
+                .GetByUsername(username)
+                .Notifications
+                .Where(x =&gt; x.IsDeleted == false)
+                .Count();
+        }
+
+        public void ClearChatNotification(Chat chat, string username)
+        {
+            var notifHub = GlobalHost.DependencyResolver.Resolve&lt;IConnectionManager&gt;().GetHubContext&lt;NotificationHub&gt;();
+
+            var toRemove = this.notifications.All
+                .FirstOrDefault(x =&gt; x.User.UserName.ToLower() == username.ToLower()
+                    &amp;&amp; x.Chat.Id == chat.Id);
+
+            if (toRemove != null)
+            {
+                this.notifications.Delete(toRemove);
+            }
+        }
+
+        public void NotifyUsers(Chat chat, string excludedUser, string message)
+        {
+            var notifHub = GlobalHost.DependencyResolver.Resolve&lt;IConnectionManager&gt;().GetHubContext&lt;NotificationHub&gt;();
+
+            foreach (var participant in chat.Participants)
+            {
+                if (participant.UserName.ToLower() != excludedUser.ToLower())
+                {
+                    if (!participant.Notifications.Any(x =&gt; x.Chat.Id == chat.Id &amp;&amp; x.IsDeleted == false))
+                    {
+                        var notification = new ChatNotification
+                        {
+                            Chat = chat,
+                            User = participant
+                        };
+
+                        this.notifications.Add(notification);
+                    }
+
+                    notifHub
+                        .Clients
+                        .User(participant.UserName)
+                        .updateNotifications(participant.Notifications.Count(x =&gt; !x.IsDeleted), chat.Id.ToString(), excludedUser, message);
+                }
+            }
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[22,9,22,137,0],[23,9,23,10,0],[24,13,24,81,0],[25,13,25,65,0],[26,13,26,93,0],[28,13,28,60,0],[29,13,29,48,0],[30,13,30,32,0],[31,9,31,10,0],[34,9,34,10,0],[35,13,39,29,0],[39,29,39,49,0],[39,49,40,26,0],[35,13,40,26,0],[41,9,41,10,0],[44,9,44,10,0],[45,13,45,121,0],[47,13,49,46,0],[51,13,51,34,0],[52,13,52,14,0],[53,17,53,53,0],[54,13,54,14,0],[55,9,55,10,0],[58,9,58,10,0],[59,13,59,121,0],[61,13,61,20,0],[61,22,61,37,0],[61,38,61,40,0],[61,41,61,58,0],[62,13,62,14,0],[63,17,63,78,0],[64,17,64,18,0],[65,21,65,61,0],[65,61,65,105,0],[65,105,65,107,0],[65,21,65,107,0],[66,21,66,22,0],[67,25,71,27,0],[73,25,73,62,0],[74,21,74,22,0],[76,21,79,83,0],[79,83,79,95,0],[79,95,79,141,0],[76,21,79,141,0],[80,17,80,18,0],[81,13,81,14,0],[82,9,82,10,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\vixat\Desktop\GitRepos\asp-project\src\SecondHand\SecondHand.Services.Data\CategoryService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using SecondHand.Services.Data.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SecondHand.Data.Models;
+using SecondHand.Data.Repositories.Contracts;
+using SecondHand.Data.Contracts;
+using Bytes2you.Validation;
+
+namespace SecondHand.Services.Data
+{
+    public class CategoryService : ICategoryService
+    {
+        private readonly ICategoryRepository categories;
+
+        public CategoryService(ICategoryRepository categories)
+        {
+            Guard.WhenArgument(categories, &quot;categories&quot;).IsNull().Throw();
+
+            this.categories = categories;
+        }
+
+        public IEnumerable&lt;Category&gt; GetAll()
+        {
+            return this.categories.All.ToList();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,9,18,63,1],[19,9,19,10,1],[20,13,20,75,1],[22,13,22,42,1],[23,9,23,10,1],[26,9,26,10,1],[27,13,27,49,1],[28,9,28,10,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\vixat\Desktop\GitRepos\asp-project\src\SecondHand\SecondHand.Services.Data\ChatsService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using SecondHand.Services.Data.Contracts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SecondHand.Data.Models;
+using SecondHand.Data.Repositories.Contracts;
+using SecondHand.Data.Contracts;
+using Bytes2you.Validation;
+
+namespace SecondHand.Services.Data
+{
+    public class ChatsService : IChatsService
+    {
+        private readonly IChatsRepository chats;
+        private readonly IAdvertisementsRepository advertisements;
+        private readonly IUsersRepository users;
+
+        public ChatsService(IChatsRepository chats, IAdvertisementsRepository advertisements,
+            IUsersRepository users)
+        {
+            Guard.WhenArgument(chats, &quot;chats&quot;).IsNull().Throw();
+            Guard.WhenArgument(advertisements, &quot;advertisements&quot;).IsNull().Throw();
+            Guard.WhenArgument(users, &quot;users&quot;).IsNull().Throw();
+
+            this.chats = chats;
+            this.advertisements = advertisements;
+            this.users = users;
+        }
+
+        public Chat CreateChat(Guid advertisementId, params string[] participantNames)
+        {
+            var foundChat = this.chats.FindChat(advertisementId, participantNames);
+
+            if (foundChat != null)
+            {
+                return null;
+            }
+
+            var advertisement = this.advertisements.GetById(advertisementId);
+
+            if (advertisement == null)
+            {
+                return null;
+            }
+
+            var participants = new List&lt;ApplicationUser&gt;();
+
+            foreach (var name in participantNames)
+            {
+                var foundUser = this.users.GetByUsername(name);
+
+                if (foundUser == null)
+                {
+                    return null;
+                }
+
+                participants.Add(foundUser);
+            }
+
+            var chat = new Chat
+            {
+                Advertisement = advertisement,
+                Participants = participants,
+            };
+
+            this.chats.Add(chat);
+            return chat;
+        }
+
+        public Chat GetChat(Guid advertisementId, params string[] participantNames)
+        {
+            var chat = this.chats.FindChat(advertisementId, participantNames);
+
+            if (chat == null)
+            {
+                return this.CreateChat(advertisementId, participantNames);
+            }
+
+            return this.chats.FindChat(advertisementId, participantNames);
+        }
+
+        public Chat GetChatById(Guid id)
+        {
+            return this.chats.GetById(id);
+        }
+
+        public Message CreateMessage(Chat chat, ApplicationUser author, string text)
+        {
+            var message = new Message
+            {
+                Author = author,
+                Text = text
+            };
+
+            chat.Messages.Add(message);
+            this.chats.Update(chat);
+
+            return message;
+        }
+
+        public IEnumerable&lt;Chat&gt; GetUserChats(string username)
+        {
+            return this.chats.GetUserChats(username).ToList();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[20,9,21,36,1],[22,9,22,10,1],[23,13,23,65,1],[24,13,24,83,1],[25,13,25,65,1],[27,13,27,32,1],[28,13,28,50,1],[29,13,29,32,1],[30,9,30,10,1],[33,9,33,10,0],[34,13,34,84,0],[36,13,36,35,0],[37,13,37,14,0],[38,17,38,29,0],[41,13,41,78,0],[43,13,43,39,0],[44,13,44,14,0],[45,17,45,29,0],[48,13,48,60,0],[50,13,50,20,0],[50,22,50,30,0],[50,31,50,33,0],[50,34,50,50,0],[51,13,51,14,0],[52,17,52,64,0],[54,17,54,39,0],[55,17,55,18,0],[56,21,56,33,0],[59,17,59,45,0],[60,13,60,14,0],[62,13,66,15,0],[68,13,68,34,0],[69,13,69,25,0],[70,9,70,10,0],[73,9,73,10,1],[74,13,74,79,1],[76,13,76,30,1],[77,13,77,14,0],[78,17,78,75,0],[81,13,81,75,1],[82,9,82,10,1],[85,9,85,10,1],[86,13,86,43,1],[87,9,87,10,1],[90,9,90,10,1],[91,13,95,15,1],[97,13,97,40,1],[98,13,98,37,1],[100,13,100,28,1],[101,9,101,10,1],[104,9,104,10,1],[105,13,105,63,1],[106,9,106,10,1]]);
+    </script>
+  </body>
+</html>

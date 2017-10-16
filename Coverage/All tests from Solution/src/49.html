@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\vixat\Desktop\GitRepos\asp-project\src\SecondHand\SecondHand.Web\Controllers\UsersController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using AutoMapper;
+using Bytes2you.Validation;
+using SecondHand.Services.Data.Contracts;
+using SecondHand.Web.Infrastructure.Attributes;
+using SecondHand.Web.Models.Users;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace SecondHand.Web.Controllers
+{
+    [SaveChanges]
+    public class UsersController : Controller
+    {
+        private readonly IUsersService userService;
+        private readonly IAdvertisementsService advertService;
+        private readonly IMapper mapper;
+
+        public UsersController(IUsersService userService, IAdvertisementsService advertService, IMapper mapper)
+        {
+            Guard.WhenArgument(userService, &quot;userService&quot;).IsNull().Throw();
+            Guard.WhenArgument(advertService, &quot;advertService&quot;).IsNull().Throw();
+            Guard.WhenArgument(mapper, &quot;mapper&quot;).IsNull().Throw();
+
+
+            this.userService = userService;
+            this.advertService = advertService;
+            this.mapper = mapper;
+        }
+
+        public ActionResult UserProfile(string username)
+        {
+            var user = this.userService.GetByUsername(username);
+                        
+            if (user == null)
+            {
+                return this.RedirectToAction(&quot;Index&quot;, &quot;Home&quot;);
+            }
+            
+            var viewModel = this.mapper.Map&lt;UserProfileViewModel&gt;(user);
+
+            return this.View(viewModel);
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,9,21,112,1],[22,9,22,10,1],[23,13,23,77,1],[24,13,24,81,1],[25,13,25,67,1],[28,13,28,44,1],[29,13,29,48,1],[30,13,30,34,1],[31,9,31,10,1],[34,9,34,10,1],[35,13,35,65,1],[37,13,37,30,1],[38,13,38,14,1],[39,17,39,63,1],[42,13,42,73,1],[44,13,44,41,1],[45,9,45,10,1]]);
+    </script>
+  </body>
+</html>
