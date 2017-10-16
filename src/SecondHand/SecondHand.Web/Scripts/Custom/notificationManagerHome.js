@@ -31,14 +31,39 @@ $(() => {
     };
 
     const appendMessage = (author, message) => {
-        const messagesUl = document.getElementById('messages');
+        const row = document.createElement('div');
+        row.classList.add('row');
 
-        const li = document.createElement('li');
-        li.innerHTML = `${author} ---> ${message}`;
+        const col = document.createElement('div');
+        col.classList.add('col-md-8');
+        col.classList.add('col-md-offset-4');
 
-        messagesUl.appendChild(li);
-    };
+        const listGroup = document.createElement('div');
+        listGroup.classList.add('list-group');
 
+        const a = document.createElement('a');
+        a.classList.add('list-group-item');
+        a.classList.add('right');
+        a.classList.add('text-right');
+
+        const h4 = document.createElement('h4');
+        h4.classList.add('list-group-item-heading');
+
+        const p = document.createElement('p');
+        p.classList.add('list-group-item-text');
+
+        const date = new Date()
+        h4.innerHTML = `${author} (${date.getMonth()}/${date.getDay()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()})`;
+        p.innerHTML = message;
+
+        row.appendChild(col);
+        col.appendChild(listGroup);
+        listGroup.appendChild(a);
+        a.appendChild(h4);
+        a.appendChild(p);
+
+        document.getElementById('messages').appendChild(row);
+    };    
 
     hub.client.updateNotifications = (count, chatID, senderName, message) => {
         if (currentChatId !== chatID) {

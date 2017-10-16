@@ -117,6 +117,7 @@ namespace SecondHand.Web.Areas.Chats.Controllers
             var message = this.chatService.CreateMessage(chat, chatParticipant, model.Text);
 
             var viewModel = this.mapper.Map<MessageListItemViewModel>(message);
+            viewModel.CreatedOn = DateTime.Now;
             
             this.chatNotificationService.NotifyUsers(chat, authorUsername, message.Text);
 

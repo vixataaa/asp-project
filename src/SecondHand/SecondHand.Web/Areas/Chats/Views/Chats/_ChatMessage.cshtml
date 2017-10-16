@@ -1,3 +1,38 @@
 ﻿@model SecondHand.Web.Areas.Chats.Models.Chats.MessageListItemViewModel
 
-<li><strong>[@Model.CreatedOn]</strong> @Model.AuthorUserName ---> @Model.Text</li>
+@{ 
+    var created = Model.CreatedOn.Value;
+    var str = created.ToShortDateString() + " " + created.Hour + ":" + created.Minute;
+}
+
+@if (User.Identity.Name == Model.AuthorUserName)
+{
+    
+
+    <div class="row">
+        <div class="col-md-8">
+            <div class="list-group">
+                <a class="list-group-item right text-left active">
+                    <h4 class="list-group-item-heading">@Model.AuthorUserName (@str) </h4>
+                    <p class="list-group-item-text">@Model.Text</p>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-8 col-md-offset-4">
+            <div class="list-group">
+                <a class="list-group-item right text-right">
+                    <h4 class="list-group-item-heading">@Model.AuthorUserName (@str)</h4>
+                    <p class="list-group-item-text">@Model.Text</p>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+
+
