@@ -106,11 +106,10 @@ namespace SecondHand.Web.Areas.Chats.Controllers
 
             var chatParticipant = chat
                 .Participants
-                .FirstOrDefault(x => x.UserName.ToLower() == authorUsername);
+                .FirstOrDefault(x => x.UserName.ToLower() == authorUsername.ToLower());
 
             if (chatParticipant == null)
             {
-                // Fix
                 return this.Json(null);
             }
 

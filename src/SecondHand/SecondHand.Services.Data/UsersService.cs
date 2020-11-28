@@ -28,16 +28,12 @@ namespace SecondHand.Services.Data
 
         public ApplicationUser GetById(string id)
         {
-            var user = this.users.GetById(id);
-
-            return user;
+            return this.users.GetById(id);
         }
 
         public ApplicationUser GetByUsername(string username)
         {
-            var user = this.users.GetByUsername(username);
-
-            return user;
+            return this.users.GetByUsername(username);
         }
 
         public void UpdateUserProfile(ApplicationUser user)

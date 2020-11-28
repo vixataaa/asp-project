@@ -63,6 +63,7 @@ namespace SecondHand.Services.Data
             {
                 Advertisement = advertisement,
                 Participants = participants,
+                Messages = new List<Message>()
             };
 
             this.chats.Add(chat);

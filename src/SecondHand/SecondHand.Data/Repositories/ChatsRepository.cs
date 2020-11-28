@@ -29,7 +29,7 @@ namespace SecondHand.Data.Repositories
 
             foreach (var name in participantNames)
             {
-                result = result.Where(x => x.Participants.Any(p => p.UserName.ToLower() == name));
+                result = result.Where(x => x.Participants.Any(p => p.UserName.ToLower() == name.ToLower()));
             }
 
             return result.FirstOrDefault();

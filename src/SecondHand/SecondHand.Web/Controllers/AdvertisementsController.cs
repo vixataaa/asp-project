@@ -133,14 +133,16 @@ namespace SecondHand.Web.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            if (adv.AddedBy.UserName != this.ControllerContext.HttpContext.User.Identity.Name)
+            if (adv.AddedBy.UserName != this.ControllerContext.HttpContext.User.Identity.Name
+                && !this.ControllerContext.HttpContext.User.IsInRole("Admin")
+                )
             {
                 return this.RedirectToAction("Details", new { id = id });
             }
 
             this.advertService.Remove(id);
 
-            return this.RedirectToAction("MyAdvertisements");
+            return this.RedirectToAction("Index");
         }
 
         [Authorize]
@@ -153,7 +155,9 @@ namespace SecondHand.Web.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            if (adv.AddedBy.UserName != this.ControllerContext.HttpContext.User.Identity.Name)
+            if (adv.AddedBy.UserName != this.ControllerContext.HttpContext.User.Identity.Name
+                && !this.ControllerContext.HttpContext.User.IsInRole("Admin")
+                )
             {
                 return this.RedirectToAction("Details", new { id = id });
             }
@@ -181,7 +185,9 @@ namespace SecondHand.Web.Controllers
                 return this.RedirectToAction("Index");
             }
 
-            if (this.ControllerContext.HttpContext.User.Identity.Name != adv.AddedBy.UserName)
+            if (this.ControllerContext.HttpContext.User.Identity.Name != adv.AddedBy.UserName
+                && !this.ControllerContext.HttpContext.User.IsInRole("Admin")
+                )
             {
                 return this.RedirectToAction("Details", new { id = model.Id.ToString() });
             }
@@ -197,14 +203,13 @@ namespace SecondHand.Web.Controllers
         }
 
 
-        public ActionResult UserAdvertisements([DataSourceRequest] DataSourceRequest request, string username)
+        public ActionResult UserAdvertisements(string username)
         {
             var loggedUsername = username;
 
             var result = this.advertService
                 .GetUserAdvertisements(loggedUsername)
-                .Select(x => this.mapper.Map<AdvertisementListItemViewModel>(x))
-                .ToDataSourceResult(request);
+                .Select(x => this.mapper.Map<AdvertisementListItemViewModel>(x));
 
             return this.Json(result);
         }

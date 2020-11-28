@@ -1447,47 +1447,47 @@ namespace SecondHand.Web.UnitTests.Controllers
             Assert.AreEqual("Details", result.RouteValues["action"]);
         }
 
-        [Test]
-        public void UserAdvertisements_Should_CallAdvertServiceGetUserAdsOnceWithCalledUsername()
-        {
-            // Arrange
-            var userService = new Mock<IUsersService>();
-            var advertService = new Mock<IAdvertisementsService>();
-            var categoryService = new Mock<ICategoryService>();
-            var mapper = new Mock<IMapper>();
+        //[Test]
+        //public void UserAdvertisements_Should_CallAdvertServiceGetUserAdsOnceWithCalledUsername()
+        //{
+        //    // Arrange
+        //    var userService = new Mock<IUsersService>();
+        //    var advertService = new Mock<IAdvertisementsService>();
+        //    var categoryService = new Mock<ICategoryService>();
+        //    var mapper = new Mock<IMapper>();
 
-            var mapperReturnResult = new AdvertisementListItemViewModel
-            {
-                AddedById = "string-id",
-                AdderUsername = "user",
-                CreatedOn = DateTime.Now,
-                CurrencyType = CurrencyType.USD,
-                Id = new Guid(),
-                Price = 5m,
-                PrimaryImageUrl = "http://img.com/"
-            };
+        //    var mapperReturnResult = new AdvertisementListItemViewModel
+        //    {
+        //        AddedById = "string-id",
+        //        AdderUsername = "user",
+        //        CreatedOn = DateTime.Now,
+        //        CurrencyType = CurrencyType.USD,
+        //        Id = new Guid(),
+        //        Price = 5m,
+        //        PrimaryImageUrl = "http://img.com/"
+        //    };
 
-            var serviceReturnResult = new List<Advertisement>()
-            {
-                new Advertisement { }
-            };
+        //    var serviceReturnResult = new List<Advertisement>()
+        //    {
+        //        new Advertisement { }
+        //    };
 
-            advertService.Setup(x => x.GetUserAdvertisements(It.IsAny<string>())).Returns(serviceReturnResult.AsQueryable());
-            mapper.Setup(x => x.Map<AdvertisementListItemViewModel>(serviceReturnResult)).Returns(mapperReturnResult);
+        //    advertService.Setup(x => x.GetUserAdvertisements(It.IsAny<string>())).Returns(serviceReturnResult.AsQueryable());
+        //    mapper.Setup(x => x.Map<AdvertisementListItemViewModel>(serviceReturnResult)).Returns(mapperReturnResult);
             
-            var sut = new AdvertisementsController(userService.Object,
-                advertService.Object,
-                categoryService.Object,
-                mapper.Object);
+        //    var sut = new AdvertisementsController(userService.Object,
+        //        advertService.Object,
+        //        categoryService.Object,
+        //        mapper.Object);
 
-            var dataSrcRequest = new DataSourceRequest();
+        //    var dataSrcRequest = new DataSourceRequest();
 
-            // Act
-            sut.UserAdvertisements(dataSrcRequest, "username");
+        //    // Act
+        //    sut.UserAdvertisements(dataSrcRequest, "username");
 
 
-            // Assert
-            advertService.Verify(x => x.GetUserAdvertisements("username"), Times.Once);
-        }
+        //    // Assert
+        //    advertService.Verify(x => x.GetUserAdvertisements("username"), Times.Once);
+        //}
     }
 }

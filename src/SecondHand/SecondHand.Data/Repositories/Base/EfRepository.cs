@@ -62,6 +62,7 @@ namespace SecondHand.Data.Repositories.Base
         public void Update(T entity)
         {
             DbEntityEntry entry = this.context.Entry(entity);
+
             if (entry.State == EntityState.Detached)
             {
                 this.context.Set<T>().Attach(entity);

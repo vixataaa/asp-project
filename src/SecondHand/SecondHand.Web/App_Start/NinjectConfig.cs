@@ -119,10 +119,6 @@ namespace SecondHand.Web
                 x.FromAssemblyContaining(typeof(IUsersRepository))
                     .SelectAllClasses()
                     .BindDefaultInterface();
-
-                //x.FromAssemblyContaining(typeof(IChatNotificationsService))
-                //    .SelectAllClasses()
-                //    .BindDefaultInterface();
             });
 
 

@@ -42,8 +42,6 @@ namespace SecondHand.Services.Notifications
 
         public void ClearChatNotification(Chat chat, string username)
         {
-            var notifHub = GlobalHost.DependencyResolver.Resolve<IConnectionManager>().GetHubContext<NotificationHub>();
-
             var toRemove = this.notifications.All
                 .FirstOrDefault(x => x.User.UserName.ToLower() == username.ToLower()
                     && x.Chat.Id == chat.Id);

@@ -2,6 +2,7 @@
 using Bytes2you.Validation;
 using SecondHand.Services.Data.Contracts;
 using SecondHand.Web.Infrastructure.Attributes;
+using SecondHand.Web.Models.Advertisements;
 using SecondHand.Web.Models.Users;
 using System;
 using System.Collections.Generic;
@@ -33,13 +34,19 @@ namespace SecondHand.Web.Controllers
         public ActionResult UserProfile(string username)
         {
             var user = this.userService.GetByUsername(username);
-                        
+
             if (user == null)
             {
                 return this.RedirectToAction("Index", "Home");
             }
-            
+
+            var userAdverts = this.advertService
+                .GetUserAdvertisements(username)
+                .Select(adv => this.mapper.Map<AdvertisementListItemViewModel>(adv));
+
             var viewModel = this.mapper.Map<UserProfileViewModel>(user);
+
+            viewModel.Advertisements = userAdverts;
 
             return this.View(viewModel);
         }

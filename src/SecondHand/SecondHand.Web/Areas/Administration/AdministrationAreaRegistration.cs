@@ -14,11 +14,11 @@ namespace SecondHand.Web.Areas.Administration
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
-            context.MapRoute(
-                "Administration_default",
-                "Administration/{controller}/{action}/{id}",
-                new { action = "Index", controller = "Panel", id = UrlParameter.Optional }
-            );
+            //context.MapRoute(
+            //    "Administration_default",
+            //    "Administration/{controller}/{action}/{id}",
+            //    new { action = "Index", controller = "Panel", id = UrlParameter.Optional }
+            //);
         }
     }
 }

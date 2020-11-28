@@ -14,7 +14,7 @@ namespace SecondHand.Data
     {
         public MsSqlDbContext()
             : base("LocalConnection", throwIfV1Schema: false)
-        {            
+        {
         }
 
         public IDbSet<Advertisement> Advertisements { get; set; }
@@ -33,7 +33,7 @@ namespace SecondHand.Data
         {
             return new MsSqlDbContext();
         }
-        
+
         public override int SaveChanges()
         {
             this.ApplyAuditInfoRules();
